@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/signin.css">
+    <title>회원가입</title>
+</head>
+<body>
+<header>
+        <h1><a href="login.html"><</a> 아무말 대잔치</h1>
+</header>
+<section class="wrap">
+    <h1 class="title">회원가입</h1>
+   <form>
+       <div class="imgContainer">
+           <p class="profile">프로필 사진</p>
+           <div class="imgBox">
+               <div class="circle">
+                   <input type="file" id="fileUpload" accept="image/*" style="display:none" />
+                   <label for="fileUpload" class="upload-label">이미지 업로드</label>
+       </div>
+       </div>
+<form action="post.html" method="post">
+<div class="inputBox">
+    <p></p>
+    <label for="id">이메일*</label>
+    <input type="text" name="id" id="id" placeholder="이메일을 입력하세요" required/>
+    <div class="helperText"> *helper text</div>
+</div>
+<div class="inputBox">
+    <label for="pw">비밀번호*</label>
+    <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요" pattern=".{8,}" title="비밀번호는 최소 8자리 이상이어야 합니다." required/>
+    <div class="helperText"> *helper text</div>
+</div>
+<div class="inputBox">
+    <label for="pw">비밀번호 확인*</label>
+    <input type="password" name="pwcheck" id="pwcheck" placeholder="비밀번호를 한번 더 입력하세요" required/>
+    <div class="helperText"> *helper text</div>
+</div>
+<div class="inputBox">
+    <label for="id">닉네임*</label>
+    <input type="text" name="nick" id="nicj" placeholder="닉네임을 입력하세요">
+    <div class="helperText"> *helper text</div>
+</div>
+
+    <div class="buttons">
+        <button type="submit"><a class="color" href="login.html">회원가입</a></button>
+        <a class="left" href="login.html"  align content="">로그인하러 가기</a>
+    </div>
+       </div>
+   </form>
+</article>
+</section>
+</body>
+</html>
+

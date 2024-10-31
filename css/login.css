@@ -1,0 +1,13 @@
+
+.signup {
+    color: black;
+    font-size: 16px;
+    text-decoration: underline;
+}
+.signup:hover {
+    color: #555; /* 링크에 마우스 올렸을 때 색 변경 */
+}
+
+#login:hover {
+     background-color: rgb(255, 255, 255); /* 마우스 올렸을 때 색상 변경 */
+ }
