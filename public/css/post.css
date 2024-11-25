@@ -13,11 +13,6 @@ main {
     align-items: center;
 }
 
-header div.arrow {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-}
 
 .inner .title {
     width: 280px;
@@ -88,6 +83,7 @@ header div.arrow {
     border-radius: 16px;
     padding-top: 5px;
     box-sizing: border-box;
+    cursor:pointer;
 }
 .inner .posts .texts {
     width: 544px;

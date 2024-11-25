@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/common.css">
+  <link rel="stylesheet" type="text/css" href="../css/post.css">
+  <link rel="stylesheet" type="text/css" href="../css/addpost.css">
+  <script src="../js/editpost.js" defer></script>
+  <title>postedit</title>
+</head>
+<body>
+<header>
+  <div class="headerInner">
+    <div class="arrow" id="arrow"><</div>
+    <h1>아무 말 대잔치</h1>
+    <div class="profile">
+
+    </div>
+    <div></div>
+
+    <div class="menu">
+      <div class="profile">
+        <a href="/users/informationedit">회원정보 수정</a>
+      </div>
+      <div class="pwd">
+        <a href="/users/pwedit">비밀번호 수정</a>
+      </div>
+      <div class="logout">
+        <a href="/">로그아웃</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="inner">
+    <div class="h2Title">
+      <h2>게시글 수정 </h2>
+    </div>
+
+
+    <form id="editPost" enctype="multipart/form-data">
+      <label class="input">
+        <div class="title">제목*</div>
+        <input
+                type="text"
+                class="content"
+                name="editTitle"
+                id="editTitle"
+                placeholder="제목을 입력해주세요. (최대 26글자)"
+                maxlength="26"
+
+        />
+      </label>
+
+
+      <label class="input">
+        <div class="title">내용*</div>
+        <textarea
+                name="editContent"
+                class="content2"
+                id="editContent"
+                placeholder="내용을 입력해주세요."
+
+        ></textarea>
+      </label>
+
+
+      <label for="editUpload" class="input">
+        <div class="imgtitle">이미지</div>
+        <div class="fileLabel">
+          <input
+                  type="file"
+                  id="editUpload"
+                  name="editPostImg"
+                  class="file-input-hidden"
+                  accept="image/*"
+          />
+        </div>
+      </label>
+      <div class="center">
+        <button type="submit" id="editBtn">수정하기</button>
+      </div>
+    </form>
+
+  </div>
+</main>
+<script src="../js/header.js"></script>
+</body>
+</html>

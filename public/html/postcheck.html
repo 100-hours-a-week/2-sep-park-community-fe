@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/postcheck.css">
+    <link rel="stylesheet" type="text/css" href="../css/post.css">
+    <title>Post Check</title>
+</head>
+<body>
+<header>
+    <div class="headerInner">
+        <div class="arrow"><</div>
+        <h1>아무 말 대잔치</h1>
+        <div class="profile">
+
+        </div>
+        <div></div>
+
+        <div class="menu">
+            <div class="profile">
+                <a href="/users/informationedit">회원정보 수정</a>
+            </div>
+            <div class="pwd">
+                <a href="/users/pwedit">비밀번호 수정</a>
+            </div>
+            <div class="logout">
+                <a href="/">로그아웃</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="inner">
+        <!-- 게시글 컨테이너 -->
+        <div class="post"></div>
+        <div class="comments"></div>
+    </div>
+</main>
+
+<!-- 공용 모달 창 -->
+<div class="modalContainer hidden" id="globalModal">
+    <div class="modalContent">
+        <div class="contentInner">
+        <h3 id="modalTitle">삭제하시겠습니까?</h3>
+        <p id="modalMessage">이 작업은 복구할 수 없습니다.</p>
+        <div class="modalbtns">
+            <button class="modalCloseButton">취소</button>
+            <button class="modalCheckButton">확인</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/postcheck.js"></script>
+<script src="../js/informationedit.js"></script>
+<script src="../js/header.js"></script>
+</body>
+</html>

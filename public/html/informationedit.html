@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/informationedit.css">
+    <title>informationedit</title>
+</head>
+<body>
+<header>
+    <div class="headerInner">
+        <div class="arrow"><</div>
+        <h1>아무 말 대잔치</h1>
+        <div class="profile">
+
+        </div>
+        <div></div>
+
+        <div class="menu">
+            <div class="profile">
+                <a href="/users/informationedit">회원정보 수정</a>
+            </div>
+            <div class="pwd">
+                <a href="/users/pwedit" id="profileImage">비밀번호 수정</a>
+            </div>
+            <div class="logout">
+                <a href="/">로그아웃</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="inner">
+        <div class="h2Title">
+        <h2>회원정보수정</h2></div>
+        <div class="container">
+        <div class="inputBox">프로필 사진</div>
+        <div class="circle" id="infoProfile"></div>
+        <div class="Container">
+            <div>이메일</div>
+            <div id="emailInfo"></div>
+            <div class="inputBox">
+                <label for="id" class="input">닉네임</label>
+                <input type="text" name="id" id="id" placeholder="이메일을 입력하세요" required/>
+                <div class="helperText"></div>
+            </div>
+            </div>
+            </div>
+        <div class="container">
+            <button>수정하기</button>
+        </div>
+        <div class="container2">
+            <div class="modalOpenButton">회원탈퇴</div>
+        </div>
+        <div class="modalContainer hidden">
+            <div class="modalContent">
+                <div class="contentInner">
+                <h3>회원탈퇴 하시겠습니까?</h3>
+                <p>작성된 게시글과 댓글은 삭제됩니다.</p>
+                <div class="modalbtns">
+                    <button class="modalCloseButton">취소</button>
+                    <button class="modalCheckButton">확인</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container3"><div class="btn">수정완료</div></div>
+</main>
+<script src="../js/informationedit.js"></script>
+<script src="../js/header.js"></script>
+</body>
+</html>

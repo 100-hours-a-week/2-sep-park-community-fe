@@ -1,0 +1,28 @@
+[
+  {
+    "userId": 2,
+    "post_id": 1,
+    "title": "수정되면 큰일나",
+    "content": "112",
+    "DateAt": "2024-11-21 12:54:53"
+  },
+  {
+    "userId": 1,
+    "post_id": 2,
+    "title": "ㅁㄴㅇㅁㄴㅇ",
+    "content": "ㅁㄴㅇㅁㄴㅇ",
+    "DateAt": "2024-11-23 04:59:31",
+    "postImagePath": "/img/posts/KakaoTalk_Photo_2024-10-23-13-12-48.png"
+  },
+  {
+    "userId": 1,
+    "post_id": 3,
+    "title": "123123",
+    "content": "123123",
+    "postImagePath": "/img/posts/맨시티.png",
+    "DateAt": "2024-11-24 17:22:01",
+    "like_count": 0,
+    "comment_count": 0,
+    "view_count": 0
+  }
+]
