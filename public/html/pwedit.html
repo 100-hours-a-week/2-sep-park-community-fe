@@ -25,7 +25,7 @@
                 <a href="/users/pwedit">비밀번호 수정</a>
             </div>
             <div class="logout">
-                <a href="/">로그아웃</a>
+                <a href="/2-sep-park-community-fe/public">로그아웃</a>
             </div>
         </div>
     </div>
@@ -40,19 +40,20 @@
 
             <div class="inputBox">
                 <label for="pw" class="input">비밀번호</label>
-                <input type="text" name="pw" id="pw" placeholder="비밀번호를 입력하세요" required/>
+                <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요" required/>
+                <div class="helperText" id="pwHelper"> *helper text</div>
             </div>
 
             <div class="inputBox">
                 <label for="pwcheck">비밀번호확인</label>
                 <input type="password" name="pwcheck" id="pwcheck" placeholder="비밀번호를 한번 더 입력하세요" pattern=".{8,}" title="비밀번호는 최소 8자리 이상이어야 합니다." required/>
-                <div class="helperText"> *helper text</div>
+                <div class="helperText" id="pwHelperCheck"> *helper text</div>
             </div>
 
 
             <div class="buttons">
                 <div class="margin">
-                    <button type="submit">로그인</button>
+                    <button type="submit" id="pwCheckBtn">수정</button>
                 </div>
             </div>
 
@@ -62,5 +63,6 @@
 </div>
 </main>
 <script src="../js/header.js"></script>
+<script src="../js/pwedit.js"></script>
 </body>
 </html>

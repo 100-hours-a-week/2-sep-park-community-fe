@@ -100,3 +100,6 @@ button:hover {
     justify-content: center;
     row-gap:45px;
 }
+#toastBtn{
+    visibility: hidden;
+}

@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return formData;
     }
 
+
     // 게시글 작성
     if (postBtn) {
         postBtn.addEventListener('click', async (e) => {

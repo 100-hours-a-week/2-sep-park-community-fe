@@ -87,14 +87,28 @@
 .inner .imgContainer{
     width: 100%;
     height: 306px;
-    background-color: #4a4545;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 20px;
+}
+.inner .imgContainer img {
 
+    max-width: 100%; /* 이미지가 컨테이너 너비를 넘지 않도록 */
+    max-height: 100%; /* 이미지가 컨테이너 높이를 넘지 않도록 */
+    object-fit: contain; /* 이미지 비율 유지하면서 컨테이너에 맞춤 */
 }
 .inner .textContainer{
     width: 100%;
     display: flex;
     height: 231px;
+    padding: 20px;
+}
+.inner .textContainer .textContent{
+    // 글 아래로
+    // 글 오른쪽으로
+    // 위로
 }
 .inner .textarea .comment::placeholder {
     width: 592px;
@@ -178,4 +192,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+#commentsContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+.comment-content{
+    padding-left:20px;
+    font-size: 15px;
+}
+#authorContent{
+    font-family: "Pretendard-Bold", sans-serif;
+    font-weight: bold;
+}
+#likeContainer{
+    cursor: pointer;
 }

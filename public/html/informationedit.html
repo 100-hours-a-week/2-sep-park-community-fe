@@ -24,7 +24,7 @@
                 <a href="/users/pwedit" id="profileImage">비밀번호 수정</a>
             </div>
             <div class="logout">
-                <a href="/">로그아웃</a>
+                <a href="/2-sep-park-community-fe/public">로그아웃</a>
             </div>
         </div>
     </div>
@@ -35,19 +35,23 @@
         <h2>회원정보수정</h2></div>
         <div class="container">
         <div class="inputBox">프로필 사진</div>
-        <div class="circle" id="infoProfile"></div>
+            <div class="imgBox">
+            <div class="circle" id="circle">
+            <input type="file" id="infoProfile" accept="image/*" style="display: none;" />
+        </div>
+            </div>
         <div class="Container">
             <div>이메일</div>
             <div id="emailInfo"></div>
             <div class="inputBox">
-                <label for="id" class="input">닉네임</label>
-                <input type="text" name="id" id="id" placeholder="이메일을 입력하세요" required/>
-                <div class="helperText"></div>
+                <label for="nameEdit" class="input">닉네임</label>
+                <input type="text" name="nameEdit" id="nameEdit" placeholder="변경할 닉네임을 입력하세요" required/>
+                <div class="helperText" id="nameEditHelper"></div>
             </div>
             </div>
             </div>
         <div class="container">
-            <button>수정하기</button>
+            <button id="editBtn">수정하기</button>
         </div>
         <div class="container2">
             <div class="modalOpenButton">회원탈퇴</div>
@@ -59,13 +63,13 @@
                 <p>작성된 게시글과 댓글은 삭제됩니다.</p>
                 <div class="modalbtns">
                     <button class="modalCloseButton">취소</button>
-                    <button class="modalCheckButton">확인</button>
+                    <button class="modalCheckButton" id="infoDeleteCheck">확인</button>
                 </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container3"><div class="btn">수정완료</div></div>
+    <div class="container3"><div class="btn" id="toastBtn">수정완료</div></div>
 </main>
 <script src="../js/informationedit.js"></script>
 <script src="../js/header.js"></script>

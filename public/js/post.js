@@ -1,3 +1,4 @@
+// 게시글 목록 API
 document.addEventListener('DOMContentLoaded', () => {
 const container = document.querySelector('.posts');
     // 로그인 버튼 클릭 시 동작
@@ -34,13 +35,13 @@ const container = document.querySelector('.posts');
                 <a href="/posts/${post.postId}">
                     <div class="box">
                         <div class="titletext">
-                            ${post.title}
+                            <div id="titleText">${post.title}</div>
                             <div class="info">
-                                <div>좋아요 ${post.like_count} 댓글 ${post.comment_count} 조회수 ${post.view_count}</div>
-                                <div>${post.date_at}</div>
+                                <div>좋아요 ${post.likeCount} 댓글 ${post.commentCount} 조회수 ${post.viewCount}</div>
+                                <div>${post.dateAt}</div>
                             </div>
                             <div class="author">
-                                <img src="${post.profile_image}" alt="${post.author}의 프로필 이미지">
+                                <img src="${post.profileImage}" alt="${post.author}의 프로필 이미지">
                                 ${post.author}
                             </div>
                         </div>

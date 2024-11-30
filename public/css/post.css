@@ -93,7 +93,7 @@ main {
 }
 .inner .titletext {
     width: 592px;
-    height: 95px;
+    height: 110px;
     padding: 24px 0 24px 24px;
     box-sizing: border-box;
     display: flex;
@@ -114,6 +114,7 @@ main {
     display: flex;
     align-items: center;
     font-size: 14px;
+    padding-top: 10px;
 }
 
 .author img {
@@ -122,4 +123,10 @@ main {
     border-radius: 50%;
     margin-right: 8px;
     background-color: #ccc; /* 임시 배경색 */
+}
+#titleText{
+    font-family: "Pretendard-Bold", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+
 }

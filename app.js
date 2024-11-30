@@ -1,11 +1,10 @@
-const express = require('express');
-const path = require('path');
-const fileSystem = require('fs');
-const fsPromises = require('fs').promises; // 비동기 방식
-const bcrypt = require('bcrypt');
-const multer = require('multer');
-const session = require('express-session');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+// __dirname 설정
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3000;
 
@@ -20,7 +19,6 @@ app.use(express.json()); // JSON 파싱
 app.use(express.static(path.join(__dirname, 'public'))); // 정적 파일 제공
 app.use('/img/profile', express.static(path.join(__dirname, 'img/profile'))); // 업로드된 파일 정적 제공
 app.use('/img/posts', express.static(path.join(__dirname, 'img/posts'))); //
-
 
 // 라우트 설정(페이지 이동)
 app.get('/', (req, res) => {

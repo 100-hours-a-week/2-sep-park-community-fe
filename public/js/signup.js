@@ -1,3 +1,5 @@
+//회원가입 API
+
 const form = document.getElementById("signupForm");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#pw");

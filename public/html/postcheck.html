@@ -25,7 +25,7 @@
                 <a href="/users/pwedit">비밀번호 수정</a>
             </div>
             <div class="logout">
-                <a href="/">로그아웃</a>
+                <a href="/2-sep-park-community-fe/public">로그아웃</a>
             </div>
         </div>
     </div>
@@ -35,26 +35,52 @@
     <div class="inner">
         <!-- 게시글 컨테이너 -->
         <div class="post"></div>
-        <div class="comments"></div>
+
+
+        <div class="makeComment">
+            <div class="box">
+                <textarea id="commentText" placeholder="댓글을 남겨주세요!"></textarea>
+            </div>
+            <div class="btn">
+                <button id="postComments">댓글 등록</button>
+            </div>
+        </div>
+
+        <div class="commentsContainer" id="commentsContainer"></div>
+
     </div>
 </main>
 
-<!-- 공용 모달 창 -->
-<div class="modalContainer hidden" id="globalModal">
+<!-- 게시글 모달 창 -->
+<div class="modalContainer hidden" id="postModal">
     <div class="modalContent">
         <div class="contentInner">
-        <h3 id="modalTitle">삭제하시겠습니까?</h3>
-        <p id="modalMessage">이 작업은 복구할 수 없습니다.</p>
-        <div class="modalbtns">
-            <button class="modalCloseButton">취소</button>
-            <button class="modalCheckButton">확인</button>
+            <h3 id="postTitle">게시글을 삭제하시겠습니까?</h3>
+            <p id="postMessage">이 작업은 복구할 수 없습니다.</p>
+            <div class="modalbtns">
+                <button class="modalCloseButton" id="postCloseBtn">취소</button>
+                <button class="modalCheckButton" id="postDeleteCheckBtn">확인</button>
+            </div>
         </div>
+    </div>
+</div>
+<!-- 댓글 모달 창 -->
+<div class="modalContainer hidden" id="commentModal">
+    <div class="modalContent">
+        <div class="contentInner">
+            <h3 id="commentTitle">댓글을 삭제하시겠습니까?</h3>
+            <p id="commentMessage">이 작업은 복구할 수 없습니다.</p>
+            <div class="modalbtns">
+                <button class="modalCloseButton" id="commentCloseBtn">취소</button>
+                <button class="modalCheckButton" id="commentDeleteCheckBtn">확인</button>
+            </div>
         </div>
     </div>
 </div>
 
+
+
 <script src="../js/postcheck.js"></script>
-<script src="../js/informationedit.js"></script>
 <script src="../js/header.js"></script>
 </body>
 </html>

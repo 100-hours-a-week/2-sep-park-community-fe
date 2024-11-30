@@ -1,3 +1,5 @@
+//로그인 API
+
 document.addEventListener('DOMContentLoaded', () => {
     // 요소 가져오기
     const form = document.getElementById("loginForm");
