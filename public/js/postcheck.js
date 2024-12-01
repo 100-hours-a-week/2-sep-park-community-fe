@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 if (deleteResponse.ok) {
                                     console.log('좋아요 취소 완료');
+                                    window.location.reload(); // 새로고침
                                 } else {
                                     console.error('좋아요 취소 중 오류 발생');
                                 }
@@ -106,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 if (postResponse.ok) {
                                     console.log('좋아요 추가 완료');
+                                    window.location.reload(); // 새로고침
                                 } else {
                                     console.error('좋아요 추가 중 오류 발생');
                                 }
@@ -274,8 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             .then(() => {
                                 alert('댓글이 성공적으로 삭제되었습니다.');
                                 location.reload();
+
                             })
                             .catch(console.error);
+                        commentModal.classList.add('hidden'); // 모달 닫기
                     });
                 }
             }
@@ -342,6 +346,9 @@ document.addEventListener('DOMContentLoaded', () => {
             })
                 .then((response) => {
                     if (!response.ok) {
+                        if (response.status === 403) {
+                            throw new Error('댓글 수정 권한이 없습니다.');
+                        }
                         throw new Error('댓글 수정에 실패했습니다.');
                     }
                     return response.json();

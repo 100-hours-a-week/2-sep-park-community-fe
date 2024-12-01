@@ -118,6 +118,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 nameEditHelper.style.visibility = "hidden";
                 editCheckBtn.style.visibility = 'visible';
                 alert("닉네임을 사용할 수 있습니다.");
+                // 인풋 필드 비활성화
+                nameInput.disabled = true;
             }
             else if(response.status === 409) {
                 nameEditHelper.style.visibility = "visible";
