@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (response.ok) {
                 alert("비밀번호가 성공적으로 변경되었습니다.");
                 console.log(await response.json());
-                window.location.href = "/posts";
+                window.location.href = "/";
             } else {
                 const errorData = await response.json();
                 alert(`비밀번호 변경 실패: ${errorData.message || "알 수 없는 오류"}`);

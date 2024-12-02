@@ -22,6 +22,10 @@ const container = document.querySelector('.posts');
     })
         .then((response) => {
             if (!response.ok) {
+                if(response.status === 401) {
+                    alert('로그인이 필요합니다.');
+                    window.location.href = '/';
+                }
                 throw new Error('게시물 목록을 불러오지 못했습니다.');
             }
             return response.json();

@@ -57,6 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert("게시물 작성 성공");
                     window.location.href = "/posts";
                 }
+                else if(response.status === 401) {
+                    alert(arr.message);
+                    window.location.href = "/";
+                }
             } catch (error) {
                 console.error("게시글 추가 중 오류:", error);
                 alert("게시글 작성 중 문제가 발생했습니다. 다시 시도해주세요.");

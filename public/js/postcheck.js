@@ -382,7 +382,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleResponse(response) {
         if (response.status === 401) {
             alert("사용자 인증이 필요합니다. 다시 로그인해주세요.");
-            throw new Error("401 Unauthorized");
+            window.location.href = "/";
+            return;
         }
         if (response.status === 403) {
             alert("권한이 없습니다.");

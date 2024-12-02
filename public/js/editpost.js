@@ -41,7 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if(response.status===403){
                 alert("게시글 수정 권한이 없습니다.");
                 window.location.href = '/posts';
-                return;
+            }
+            else if(response.status===401){
+                alert("로그인 정보가 없습니다.");
+                window.location.href = '/';
             }
             else if (response.ok) {
                 alert('게시물이 성공적으로 수정되었습니다!');
