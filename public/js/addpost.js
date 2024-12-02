@@ -23,6 +23,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return true;
     }
+    // 버튼 색상 업데이트 함수
+    function updateButtonColor() {
+        if (!title.value.trim() || !content.value.trim()) {
+            postBtn.style.backgroundColor = "#ACA0EB"; // 비활성화 색상
+            postBtn.disabled = true;
+        } else {
+            postBtn.style.backgroundColor = "#7F6AEE"; // 활성화 색상
+            postBtn.disabled = false;
+        }
+    }
+
+    // 제목, 본문 입력 이벤트 리스너
+    title.addEventListener("input", updateButtonColor);
+    content.addEventListener("input", updateButtonColor);
+
+    // 버튼 상태 업데이트
+    updateButtonColor();
 
     // 폼 데이터 생성
     function createFormData() {
@@ -36,6 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("FormData 생성 완료:", formData);
         return formData;
     }
+
+
+
+
+
+
 
 
     // 게시글 작성
@@ -67,4 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+
+
+
 });

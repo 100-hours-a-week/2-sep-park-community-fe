@@ -220,6 +220,9 @@ a{
 .modalOpenButton {
     cursor: pointer;
 }
+#font14{
+    font-size: 14px;
+}
 
 /* 모달 컨테이너 경로 수정 */
 .modalContainer {
