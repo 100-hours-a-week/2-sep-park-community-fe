@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     const data = await response.json();
 
-
                     if (data.user) {
                         // 프로필 이미지 저장
                         const profileImgPath = data.user.profileImg;
@@ -55,16 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else {
                         alert("사용자 정보를 불러오지 못했습니다.");
                     }
-                } else {
-                    const errorData = await response.json();
-                    showHelperText(errorData.message || '로그인에 실패했습니다.');
                 }
             } catch (error) {
                 console.error("Error during login:", error);
                 alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
             }
-        } else {
-            showHelperText('이메일 또는 비밀번호 형식이 올바르지 않습니다.');
         }
     });
 

@@ -53,13 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: formData,
                     credentials: "include", // 쿠키를 요청에 포함
                 });
-
                 if (response.ok) {
                     alert("게시물 작성 성공");
                     window.location.href = "/posts";
-                } else {
-                    const data = await response.json();
-                    alert(data.message || "게시글 작성 실패: 알 수 없는 오류가 발생했습니다.");
                 }
             } catch (error) {
                 console.error("게시글 추가 중 오류:", error);

@@ -344,24 +344,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({ text: commentContent }),
             })
-                .then((response) => {
-                    if (!response.ok) {
-                        if (response.status === 403) {
-                            throw new Error('댓글 수정 권한이 없습니다.');
-                        }
-                        throw new Error('댓글 수정에 실패했습니다.');
-                    }
-                    return response.json();
-                })
+                .then(handleResponse)
                 .then((data) => {
                     alert("댓글 수정 성공!");
                     console.log("수정된 댓글:", data);
-                    location.reload(); // 페이지 새로고침
-                })
-                .catch((error) => {
-                    console.error("댓글 수정 중 오류 발생:", error.message);
-                    alert("댓글 수정 중 문제가 발생했습니다.");
-                });
+                    location.reload(); // 페이지 새로고침 추후 DOM조작으로 변경
+                }).catch(console.error);
         } else {
             // 댓글 작성 상태일 때 POST 요청
             fetch(`http://localhost:4000/posts/${postId}/comments`, {
@@ -373,35 +361,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({ text: commentContent }),
             })
-
-
                 .then((data) => {
-                    alert("댓글 작성 성공!");
                     console.log("작성된 댓글:", data);
-
-                    // DOM 업데이트
-                    const commentElement = document.querySelector(`[data-id="${editingCommentId}"]`);
-                    if (!commentElement) {
-                        console.error(`댓글 요소를 찾을 수 없습니다. ID: ${editingCommentId}`);
-                        location.reload(); // 새로고침으로 대응
-                        return;
-                    }
-
-                    const contentElement = commentElement.querySelector('.comment-content');
-                    if (!contentElement) {
-                        console.error(`댓글 내용 요소를 찾을 수 없습니다. ID: ${editingCommentId}`);
-                        location.reload(); // 새로고침으로 대응
-                        return;
-                    }
-
-                    contentElement.textContent = commentContent;
-
-                    // 수정 상태 초기화
-                    isEditing = false;
-                    editingCommentId = null;
-                    commentText.value = ""; // 입력 필드 초기화
-                    postComments.textContent = "댓글 등록"; // 버튼 텍스트 복원
-                })
+                        location.reload(); // 새로고침으로 대응추후 DOM 조작으로 변경
+                    })
                 .catch((error) => {
                     console.error("댓글 수정 중 오류 발생:", error.message);
                 });

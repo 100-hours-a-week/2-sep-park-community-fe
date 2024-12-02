@@ -50,8 +50,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 circle.style.backgroundSize = 'cover';
                 circle.style.backgroundPosition = 'center';
             }
-        } else {
-            console.error("Failed to fetch session data");
         }
     } catch (error) {
         console.error('오류 발생:', error);
@@ -113,7 +111,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             if (response.ok) {
                 const result = await response.json();
-
                 // 닉네임 중복 확인 완료
                 nameEditHelper.style.visibility = "hidden";
                 editCheckBtn.style.visibility = 'visible';
@@ -160,15 +157,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 window.location.href = "/posts";
                 console.log("수정된 정보:", data);
             }
-            else if (!response.ok) {
-                console.error('서버 응답 상태 코드:', response.status);
-                const errorText = await response.text(); // 응답 본문을 텍스트로 확인
-                console.error('서버 응답 내용:', errorText); // HTML 에러 페이지 내용 확인
-                throw new Error('수정 실패');
-            }else {
-                const errorData = await response.json();
-                throw new Error(errorData.message || '수정 실패');
-            }
         } catch (error) {
             console.error(' 수정 중 오류 발생:', error.message);
             alert("수정 중 문제가 발생했습니다.");
@@ -183,11 +171,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 credentials: 'include',
             })
             if (response.ok) {
-
                 alert("회원정보 삭제되었습니다.");
                 window.location.href = "/";
-            } else {
-                throw new Error('삭제 실패');
             }
              } catch (error) {
             console.error(':', error.message);

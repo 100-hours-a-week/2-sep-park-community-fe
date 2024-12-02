@@ -10,13 +10,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     const pwCheckBtn = document.getElementById("pwCheckBtn");
     const pwHelper = document.getElementById("pwHelper"); // 비밀번호 도움말
     const pwCheckHelper = document.getElementById("pwHelperCheck"); // 비밀번호 확인 도움말
-
-    //  요소가 모두 존재하는지 확인
-    if (!passwordInput || !passwordCheckInput || !pwCheckBtn || !pwHelper || !pwCheckHelper) {
-        console.error("필요한 요소 중 하나를 찾을 수 없습니다.");
-        return;
-    }
-
     // 비밀번호 유효성 검사
     function validatePassword() {
         const password = passwordInput.value;
