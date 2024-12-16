@@ -21,6 +21,7 @@ const container = document.querySelector('.posts');
         credentials: "include", // 쿠키를 요청에 포함
     })
         .then((response) => {
+
             if (!response.ok) {
                 if(response.status === 401) {
                     alert('로그인이 필요합니다.');
@@ -31,10 +32,15 @@ const container = document.querySelector('.posts');
             return response.json();
         })
         .then((data) => {
+            console.log(data); // 반환된 데이터 구조 확인
+            const posts = data.data;
             const postsContainer = document.querySelector('.posts');
             postsContainer.innerHTML = ''; // 기존 게시물 초기화
-
-            data.data.posts.forEach((post) => {
+            if (!posts || posts.length === 0) {
+                postsContainer.innerHTML = "<p>게시글이 없습니다.</p>";
+                return;
+            }
+            posts.forEach((post) => {
                 const postHTML = `
                 <a href="/posts/${post.postId}">
                     <div class="box">

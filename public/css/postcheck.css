@@ -212,3 +212,13 @@
 #likeContainer{
     cursor: pointer;
 }
+.views{
+    font-family: "Pretendard-Bold", sans-serif;
+    font-weight: bold;
+    font-weight: 700;
+}
+.count{
+    font-family: "Pretendard-Bold", sans-serif;
+    font-weight: bold;
+    font-weight: 700;
+}

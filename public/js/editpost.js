@@ -1,14 +1,34 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const editForm = document.getElementById('editPost');
     const title = document.getElementById('editTitle');
     const content = document.getElementById('editContent');
     const postImg = document.getElementById('editUpload');
-
+    const currentImageInfo = document.getElementById('currentImageInfo');
+    let imageStatus = "keep"; // 초기 상태: 기존 이미지 유지
+    let initialImageName = ""; // 기존 이미지 파일명 저장
+    const postId = window.location.pathname.split('/').pop();
     if (!editForm) {
         console.error("editPost 폼을 찾을 수 없습니다.");
         return;
     }
+    try {
+        // 서버에서 게시글 데이터 가져오기
+        const response = await fetch(`http://localhost:4000/posts/${postId}/postImg`);
+        if (response.ok) {
+            const data = await response.json();
+            const { postImagePath } = data;
 
+            // 기존 이미지 파일명 설정
+            if (postImagePath) {
+                initialImageName = postImagePath.split('/').pop();
+                currentImageInfo.textContent = `현재 이미지: ${initialImageName}`;
+            } else {
+                currentImageInfo.textContent = "현재 이미지: 없음";
+            }
+        }
+    } catch (error) {
+        console.error("이미지 데이터 로드 중 오류 발생:", error);
+    }
     // FormData 생성 및 데이터 확인
     function createFormData() {
         const formData = new FormData(editForm);
@@ -20,6 +40,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return formData;
     }
+    let isFileDialogOpen = false; // 파일 선택창이 열렸는지 추적
+
+// 파일 선택 버튼 클릭 시 파일 선택창 열림 감지
+    postImg.addEventListener('click', () => {
+        isFileDialogOpen = true; // 파일 선택창 열림 상태로 설정
+    });
+
+// 파일 선택창에서 변경 이벤트 감지
+    postImg.addEventListener('change', () => {
+        if (postImg.files.length > 0) {
+            // 새 파일이 선택된 경우
+            currentImageInfo.textContent = `선택된 파일: ${postImg.files[0].name}`;
+            imageStatus = "new"; // 새 이미지 업로드 상태
+            isFileDialogOpen = false; // 파일 선택창 닫힘
+        } else if (isFileDialogOpen) {
+            // 파일 선택창이 열려 있었지만 취소된 경우
+            currentImageInfo.textContent = "현재 이미지: 없음";
+            imageStatus = "null"; // 이미지 없음 상태로 설정
+            isFileDialogOpen = false; // 파일 선택창 닫힘
+        }
+    });
 
     editForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -30,9 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("파일:", postImg.files[0]);
 
         const formData = createFormData();
-
+        formData.append("imageStatus", imageStatus);
         try {
-            const postId = window.location.pathname.split('/').pop();
             const response = await fetch(`http://localhost:4000/posts/${postId}`, {
                 method: 'PUT',
                 body: formData,

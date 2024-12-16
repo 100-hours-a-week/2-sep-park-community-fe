@@ -27,9 +27,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         modal.classList.add('hidden'); // 'hidden' 클래스 추가
     });
     try {
-        // localStorage에서 프로필 이미지 경로 가져오기
-        const profileImgPath = localStorage.getItem('profileImg');
-
         // 세션 데이터를 가져오기
         const response = await fetch("http://localhost:4000/auth/session", {
             method: 'GET',
@@ -38,17 +35,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (response.ok) {
             const data = await response.json();
+            console.log(data);
+
+            // 세션 데이터에서 필요한 정보 추출
             const userEmail = data.user.email;
+            const userNickname = data.user.nickname; // 세션의 닉네임 가져오기
             userId = data.user.userId; // 세션에서 userId 가져오기
+
             // 이메일을 HTML 요소에 동적으로 삽입
             if (emailElement) {
                 emailElement.innerText = userEmail;
             }
-            // 기본 프로필 이미지 설정
+
+            // 프로필 이미지 경로 설정 (localStorage 사용)
+            const profileImgPath = localStorage.getItem('profileImg');
             if (profileImgPath) {
                 circle.style.backgroundImage = `url(${profileImgPath})`;
                 circle.style.backgroundSize = 'cover';
                 circle.style.backgroundPosition = 'center';
+            }
+
+            // 닉네임 placeholder 업데이트 및 localStorage 동기화
+            if (nameInput) {
+                nameInput.placeholder = userNickname; // 서버에서 받은 닉네임 적용
+                localStorage.setItem('nickname', userNickname); // localStorage 업데이트
             }
         }
     } catch (error) {
@@ -102,42 +112,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             nameEditHelper.innerText = "닉네임은 최대 10자 까지 작성가능합니다.";
             return false;
         }
-        try {
-            // 닉네임 중복 확인 요청
-            const response = await fetch(
-                `http://localhost:4000/users/name/check?name=${encodeURIComponent(editName)}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json'},
-            });
-            if (response.ok) {
-                const result = await response.json();
-                // 닉네임 중복 확인 완료
-                nameEditHelper.style.visibility = "hidden";
-                editCheckBtn.style.visibility = 'visible';
-                alert("닉네임을 사용할 수 있습니다.");
-                // 인풋 필드 비활성화
-                nameInput.disabled = true;
-            }
-            else if(response.status === 409) {
-                nameEditHelper.style.visibility = "visible";
-                nameEditHelper.innerText = "이미 사용 중인 닉네임입니다.";
-                return false;
-            }
-        } catch (error) {
-            console.error("닉네임 확인 중 오류 발생:", error);
-            alert("닉네임 중복 확인 중 문제가 발생했습니다. 다시 시도해주세요.");
-        }
-    });
 
-    // 수정 완료 버튼 클릭 이벤트
-    editCheckBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
         try {
-            //  닉네임 값 가져오기
-            const editName = nameInput.value.trim();
-            console.log(editName);
-            console.log(userId);
-
             // FormData 생성
             const formData = new FormData();
             formData.append('name', editName); // 닉네임 추가
@@ -149,16 +125,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                 credentials: 'include',
                 body: formData, // FormData 전송
             });
-
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('profileImg', data.user.profileImagePath); // 로컬스토리지 업데이트
+                console.log(data);
+                // 닉네임 중복 확인 완료
+                nameEditHelper.style.visibility = "hidden";
+                editCheckBtn.style.visibility = 'visible'; // 여기를 토스트처럼 바꿔야함
                 alert("닉네임 및 프로필 이미지가 성공적으로 변경되었습니다.");
-                window.location.href = "/posts";
-                console.log("수정된 정보:", data);
+                localStorage.setItem('profileImg', data.user.profileImage || '');
+                window.location.reload();
+            }
+            else if(response.status === 409) {
+                nameEditHelper.style.visibility = "visible";
+                nameEditHelper.innerText = "이미 사용 중인 닉네임입니다.";
+                return false;
             }
         } catch (error) {
-            console.error(' 수정 중 오류 발생:', error.message);
+            console.error("닉네임 확인 중 오류 발생:", error);
             alert("수정 중 문제가 발생했습니다.");
         }
     });

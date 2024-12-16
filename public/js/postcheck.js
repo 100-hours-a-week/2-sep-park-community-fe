@@ -1,7 +1,9 @@
 // 상세 게시글 조회 API
 //댓글 작성,수정,삭제 API
 //게시글 수정, 삭제 API
-document.addEventListener('DOMContentLoaded', () => {
+
+
+document.addEventListener('DOMContentLoaded', async () => {
     const postComments = document.getElementById('postComments');
     const commentText = document.getElementById('commentText'); // 댓글 input
 
@@ -21,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
         .then(handleResponse)
         .then((data) => {
-            const post = data.data.post;
+            console.log(data); // 반환된 데이터의 실제 구조 확인
+            const post = data.post;
             const postContainer = document.querySelector('.post');
             postContainer.innerHTML = `
             <div class="post">
@@ -46,15 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="clickBtn">
                         <div class="views" id="likeBtn">
                             <div class="count" id="likeContainer">${post.likeCount}</div>
-                            좋아요
-                        </div>
-                        <div class="views">
-                            <div class="count">${post.commentCount}</div>
-                            댓글
+                            좋아요 수 
                         </div>
                         <div class="views">
                             <div class="count">${post.viewCount}</div>
                             조회수
+                        </div>
+                        <div class="views">
+                            <div class="count">${post.commentCount}</div>
+                            댓글
                         </div>
                     </div>
         `;
@@ -296,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let editingCommentId = null; // 현재 수정 중인 댓글의 ID 저장
 
 // 댓글 수정 버튼 클릭 시 동작
-    document.body.addEventListener('click', (e) => {
+    document.body.addEventListener('click', async (e) => {
         if (e.target.classList.contains('modify-btn')) {
             const commentId = e.target.getAttribute('data-id'); // 수정하려는 댓글 ID
             const commentElement = e.target.closest('.comment'); // 해당 댓글 DOM 요소
@@ -317,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 // 댓글 작성 및 수정 버튼 클릭 시 동작
-    postComments.addEventListener('click', (e) => {
+    postComments.addEventListener('click', async (e) => {
         e.preventDefault();
 
         if (!commentText) {
@@ -335,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isEditing && editingCommentId) {
             // 수정 상태일 때 PUT 요청
-            fetch(`http://localhost:4000/posts/${postId}/comments/${editingCommentId}`, {
+                const response = await fetch(`http://localhost:4000/posts/${postId}/comments/${editingCommentId}`, {
                 method: 'PUT',
                 mode: 'cors',
                 credentials: "include",
@@ -343,13 +346,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ text: commentContent }),
-            })
-                .then(handleResponse)
-                .then((data) => {
-                    alert("댓글 수정 성공!");
-                    console.log("수정된 댓글:", data);
-                    location.reload(); // 페이지 새로고침 추후 DOM조작으로 변경
-                }).catch(console.error);
+            });
+            if (response.ok) {
+                const updatedComment = await response.json();
+                console.log("수정된 댓글 데이터:", updatedComment);
+                alert("댓글 수정 성공!");
+                window.location.reload();
+            }
         } else {
             // 댓글 작성 상태일 때 POST 요청
             fetch(`http://localhost:4000/posts/${postId}/comments`, {
