@@ -182,7 +182,7 @@ nameInput.addEventListener("input", validateName);
             formData.append("profileImage", fileInput.files[0]); // 필드 이름은 'profileImage'
 
             // 데이터 전송 로직
-            fetch("http://localhost:4000/auth/signup", {
+            fetch("http://3.83.156.215:4000/auth/signup", {
                 method: "POST",
                 body: formData
             }).then(response => {
