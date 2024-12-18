@@ -1,5 +1,5 @@
 //회원가입 API
-
+import { API_URL } from '../../app.js';
 const form = document.getElementById("signupForm");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#pw");
@@ -182,7 +182,7 @@ nameInput.addEventListener("input", validateName);
             formData.append("profileImage", fileInput.files[0]); // 필드 이름은 'profileImage'
 
             // 데이터 전송 로직
-            fetch("http://3.83.156.215:4000/auth/signup", {
+            fetch(`${API_URL}/auth/signup`, {
                 method: "POST",
                 body: formData
             }).then(response => {

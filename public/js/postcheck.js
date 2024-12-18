@@ -1,8 +1,7 @@
 // 상세 게시글 조회 API
 //댓글 작성,수정,삭제 API
 //게시글 수정, 삭제 API
-
-
+import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', async () => {
     const postComments = document.getElementById('postComments');
     const commentText = document.getElementById('commentText'); // 댓글 input
@@ -16,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const postId = match ? match[1] : null;
 
     // 게시글 조회 (랜더링)
-    fetch(`http://localhost:4000/posts/${postId}`, {
+    fetch(`${API_URL}/posts/${postId}`, {
         method: 'GET',
         mode: 'cors',
         credentials: "include",
@@ -77,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     console.log('좋아요 클릭!2');
                     try {
                         // 좋아요 상태 조회
-                        const response = await fetch(`http://localhost:4000/posts/${postId}/like/likeCheck`, {
+                        const response = await fetch(`${API_URL}/${postId}/like/likeCheck`, {
                             method: 'GET',
                             mode: 'cors',
                             credentials: 'include',
@@ -88,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                             if (isLiked) {
                                 // 좋아요 취소
-                                const deleteResponse = await fetch(`http://localhost:4000/posts/${postId}/like`, {
+                                const deleteResponse = await fetch(`${API_URL}/${postId}/like`, {
                                     method: 'DELETE',
                                     mode: 'cors',
                                     credentials: 'include',
@@ -102,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 }
                             } else {
                                 // 좋아요 추가
-                                const postResponse = await fetch(`http://localhost:4000/posts/${postId}/like`, {
+                                const postResponse = await fetch(`${API_URL}/posts/${postId}/like`, {
                                     method: 'get',
                                     mode: 'cors',
                                     credentials: 'include',
@@ -193,7 +192,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     // 댓글 조회 (랜더링)
-    fetch(`http://localhost:4000/posts/${postId}/comments`, {
+    fetch(`${API_URL}/posts/${postId}/comments`, {
         method: 'GET',
         mode: 'cors',
         credentials: "include", // 쿠키 포함
@@ -271,7 +270,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const commentDeleteCheckBtn = document.getElementById('commentDeleteCheckBtn');
                 if (commentDeleteCheckBtn) {
                     commentDeleteCheckBtn.addEventListener('click', () => {
-                        fetch(`http://localhost:4000/posts/${postId}/comments/${commentId}`, {
+                        fetch(`${API_URL}/posts/${postId}/comments/${commentId}`, {
                             method: 'DELETE',
                             credentials: 'include',
                         })
@@ -338,7 +337,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (isEditing && editingCommentId) {
             // 수정 상태일 때 PUT 요청
-                const response = await fetch(`http://localhost:4000/posts/${postId}/comments/${editingCommentId}`, {
+                const response = await fetch(`${API_URL}/posts/${postId}/comments/${editingCommentId}`, {
                 method: 'PUT',
                 mode: 'cors',
                 credentials: "include",
@@ -355,7 +354,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         } else {
             // 댓글 작성 상태일 때 POST 요청
-            fetch(`http://localhost:4000/posts/${postId}/comments`, {
+            fetch(`${API_URL}/posts/${postId}/comments`, {
                 method: 'POST',
                 mode: 'cors',
                 credentials: "include",

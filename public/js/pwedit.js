@@ -1,5 +1,5 @@
 //회원정보 비밀번호 수정 API
-
+import { API_URL } from '../../app.js';
 document.addEventListener("DOMContentLoaded", async function () {
     // 정규 표현식: 비밀번호 유효성 검사
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 세션 데이터 가져오기
     let userId;
     try {
-        const response = await fetch("http://localhost:4000/auth/session", {
+        const response = await fetch(`${API_URL}auth/session`, {
             method: "GET",
             mode: "cors",
             credentials: "include", // 쿠키 포함
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const newPassword = passwordInput.value;
 
         try {
-            const response = await fetch(`http://localhost:4000/users/${userId}/password`, {
+            const response = await fetch(`${API_URL}/users/${userId}/password`, {
                 method: "PUT",
                 mode: "cors",
                 credentials: "include",

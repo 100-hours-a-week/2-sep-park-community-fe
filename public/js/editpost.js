@@ -1,3 +1,4 @@
+import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', async () => {
     const editForm = document.getElementById('editPost');
     const title = document.getElementById('editTitle');
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     try {
         // 서버에서 게시글 데이터 가져오기
-        const response = await fetch(`http://localhost:4000/posts/${postId}/postImg`);
+        const response = await fetch(`${API_URL}/posts/${postId}/postImg`);
         if (response.ok) {
             const data = await response.json();
             const { postImagePath } = data;
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const formData = createFormData();
         formData.append("imageStatus", imageStatus);
         try {
-            const response = await fetch(`http://localhost:4000/posts/${postId}`, {
+            const response = await fetch(`${API_URL}/posts/${postId}`, {
                 method: 'PUT',
                 body: formData,
                 credentials: "include", // 쿠키를 요청에 포함

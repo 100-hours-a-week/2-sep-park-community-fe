@@ -1,6 +1,7 @@
 //회원정보 수정 API
 //회원 탈퇴 API
 //닉네임 중복 API
+import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', async () => {
     const emailElement = document.getElementById('emailInfo'); // email 정보를 표시할 요소
     const nameInput= document.getElementById('nameEdit');
@@ -26,9 +27,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     modalCloseButton.addEventListener('click', () => {
         modal.classList.add('hidden'); // 'hidden' 클래스 추가
     });
+    //`${API_URL}/auth/login`
     try {
         // 세션 데이터를 가져오기
-        const response = await fetch("http://localhost:4000/auth/session", {
+        const response = await fetch(`${API_URL}/auth/session`, {
             method: 'GET',
             credentials: 'include', // 쿠키 포함
         });
@@ -120,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (selectedFile) {
                 formData.append('profileImage', selectedFile); // 선택된 프로필 이미지 추가
             }
-            const response = await fetch(`http://localhost:4000/users/${userId}`, {
+            const response = await fetch(`${API_URL}/${userId}`, {
                 method: 'PUT',
                 credentials: 'include',
                 body: formData, // FormData 전송
@@ -149,7 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     infoDeleteCheck.addEventListener('click', async (e) => {
         e.preventDefault();
         try{
-            const response = await fetch(`http://localhost:4000/users/${userId}`, {
+            const response = await fetch(`${API_URL}/users/${userId}`, {
                 method: 'DELETE',
                 credentials: 'include',
             })

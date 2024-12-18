@@ -1,3 +1,4 @@
+import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', () => {
     const arrow = document.getElementById('arrow');
     const title = document.getElementById('postTitle');
@@ -71,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = createFormData();
 
             try {
-                const response = await fetch("http://localhost:4000/posts", {
+                const response = await fetch(`${API_URL}/posts`, {
                     method: "POST",
                     body: formData,
                     credentials: "include", // 쿠키를 요청에 포함

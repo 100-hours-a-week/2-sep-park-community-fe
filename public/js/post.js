@@ -1,4 +1,5 @@
 // 게시글 목록 API
+import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', () => {
 const container = document.querySelector('.posts');
     // 로그인 버튼 클릭 시 동작
@@ -15,7 +16,7 @@ const container = document.querySelector('.posts');
 // 게시물 목록 가져오기
 
 
-    fetch('http://localhost:4000/posts', {
+    fetch(`${API_URL}/posts`, {
         method: 'GET',
         mode: 'cors',
         credentials: "include", // 쿠키를 요청에 포함

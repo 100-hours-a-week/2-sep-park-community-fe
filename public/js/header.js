@@ -1,3 +1,4 @@
+import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', () => {
     // DOM 요소 선택
     const profile = document.querySelector('.headerInner .profile'); // 프로필 이미지 클릭 영역
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 로그아웃
     if (logout) {
         logout.addEventListener('click', async () => {
-            const response = await fetch('http://localhost:4000/users/logout', { method: 'POST', credentials: 'include' });
+            const response = await fetch(`${API_URL}/users/logout`, { method: 'POST', credentials: 'include' });
             if (response.ok) {
                 alert('로그아웃 성공');
                 window.location.href = '/';
