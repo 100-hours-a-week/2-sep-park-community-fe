@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('오류 발생:', error);
     }
 
+    let openDialog = false; // 초기값 설정
     //circle을 클릭하면 파일 선택 창 열기
     circle.addEventListener('click', (e) =>{
         infoProfile.value = ''; // 입력값 초기화
