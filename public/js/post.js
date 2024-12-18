@@ -1,5 +1,5 @@
 // 게시글 목록 API
-import { API_URL } from '../../app.js';
+//import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', () => {
 const container = document.querySelector('.posts');
     // 로그인 버튼 클릭 시 동작

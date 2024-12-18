@@ -1,5 +1,5 @@
 //회원정보 비밀번호 수정 API
-import { API_URL } from '../../app.js';
+//import { API_URL } from '../../app.js';
 document.addEventListener("DOMContentLoaded", async function () {
     // 정규 표현식: 비밀번호 유효성 검사
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;

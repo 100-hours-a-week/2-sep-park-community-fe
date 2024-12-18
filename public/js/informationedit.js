@@ -1,7 +1,7 @@
 //회원정보 수정 API
 //회원 탈퇴 API
 //닉네임 중복 API
-import { API_URL } from '../../app.js';
+//import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', async () => {
     const emailElement = document.getElementById('emailInfo'); // email 정보를 표시할 요소
     const nameInput= document.getElementById('nameEdit');

@@ -1,4 +1,4 @@
-import { API_URL } from '../../app.js';
+//import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', () => {
     // DOM 요소 선택
     const profile = document.querySelector('.headerInner .profile'); // 프로필 이미지 클릭 영역

@@ -1,4 +1,4 @@
-import { API_URL } from '../../app.js';
+//import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', async () => {
     const editForm = document.getElementById('editPost');
     const title = document.getElementById('editTitle');

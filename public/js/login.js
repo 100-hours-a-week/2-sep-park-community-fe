@@ -1,5 +1,5 @@
 //로그인 API
-import { API_URL } from '../../app.js';
+//import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', () => {
     // 요소 가져오기
     const form = document.getElementById("loginForm");
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // API 호출
-                const response = await fetch(`${API_URL}/auth/login`, {
+                const response = await fetch(`http://3.83.156.215:4000/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(loginData),

@@ -1,4 +1,4 @@
-import { API_URL } from '../../app.js';
+//import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', () => {
     const arrow = document.getElementById('arrow');
     const title = document.getElementById('postTitle');
@@ -56,12 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-
-
-
-
-
-
     // 게시글 작성
     if (postBtn) {
         postBtn.addEventListener('click', async (e) => {
@@ -91,8 +85,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-
-
 
 });

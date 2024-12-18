@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3000;
-export const API_URL = "http://3.83.156.215:4000";
+//export const API_URL = "http://3.83.156.215:4000";
 // 로그 미들웨어
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);

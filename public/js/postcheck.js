@@ -1,7 +1,7 @@
 // 상세 게시글 조회 API
 //댓글 작성,수정,삭제 API
 //게시글 수정, 삭제 API
-import { API_URL } from '../../app.js';
+//import { API_URL } from '../../app.js';
 document.addEventListener('DOMContentLoaded', async () => {
     const postComments = document.getElementById('postComments');
     const commentText = document.getElementById('commentText'); // 댓글 input
