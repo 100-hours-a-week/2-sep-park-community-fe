@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (selectedFile) {
                 formData.append('profileImage', selectedFile); // 선택된 프로필 이미지 추가
             }
-            const response = await fetch(`http://3.83.156.215:4000/${userId}`, {
+            const response = await fetch(`http://3.83.156.215:4000/users/${userId}`, {
                 method: 'PUT',
                 credentials: 'include',
                 body: formData, // FormData 전송
