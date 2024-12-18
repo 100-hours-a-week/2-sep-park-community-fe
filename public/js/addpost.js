@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = createFormData();
 
             try {
-                const response = await fetch(`${API_URL}/posts`, {
+                const response = await fetch(`http://3.83.156.215:4000/posts`, {
                     method: "POST",
                     body: formData,
                     credentials: "include", // 쿠키를 요청에 포함

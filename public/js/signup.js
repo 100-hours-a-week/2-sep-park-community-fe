@@ -191,7 +191,8 @@ nameInput.addEventListener("input", validateName);
                     window.location.href = "/";
                 } else {
                     response.json().then(data => {
-                        alert(data.message || "회원가입 실패: 알 수 없는 오류가 발생했습니다.");
+                        const errorMessage = data.message || `회원가입 실패:(HTTP ${response.status})`;
+                        alert(errorMessage);
                     });
                 }
             }).catch(error => {

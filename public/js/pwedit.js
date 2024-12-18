@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 세션 데이터 가져오기
     let userId;
     try {
-        const response = await fetch(`${API_URL}auth/session`, {
+        const response = await fetch(`http://3.83.156.215:4000/auth/session`, {
             method: "GET",
             mode: "cors",
             credentials: "include", // 쿠키 포함
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const newPassword = passwordInput.value;
 
         try {
-            const response = await fetch(`${API_URL}/users/${userId}/password`, {
+            const response = await fetch(`http://3.83.156.215:4000/users/${userId}/password`, {
                 method: "PUT",
                 mode: "cors",
                 credentials: "include",

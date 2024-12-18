@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     try {
         // 서버에서 게시글 데이터 가져오기
-        const response = await fetch(`${API_URL}/posts/${postId}/postImg`);
+        const response = await fetch(`http://3.83.156.215:4000/posts/${postId}/postImg`);
         if (response.ok) {
             const data = await response.json();
             const { postImagePath } = data;
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const formData = createFormData();
         formData.append("imageStatus", imageStatus);
         try {
-            const response = await fetch(`${API_URL}/posts/${postId}`, {
+            const response = await fetch(`http://3.83.156.215:4000/posts/${postId}`, {
                 method: 'PUT',
                 body: formData,
                 credentials: "include", // 쿠키를 요청에 포함

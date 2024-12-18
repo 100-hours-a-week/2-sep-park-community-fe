@@ -16,7 +16,7 @@ const container = document.querySelector('.posts');
 // 게시물 목록 가져오기
 
 
-    fetch(`${API_URL}/posts`, {
+    fetch(`http://3.83.156.215:4000/posts`, {
         method: 'GET',
         mode: 'cors',
         credentials: "include", // 쿠키를 요청에 포함

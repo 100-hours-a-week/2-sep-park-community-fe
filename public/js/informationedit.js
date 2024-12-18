@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     //`${API_URL}/auth/login`
     try {
         // 세션 데이터를 가져오기
-        const response = await fetch(`${API_URL}/auth/session`, {
+        const response = await fetch(`http://3.83.156.215:4000/auth/session`, {
             method: 'GET',
             credentials: 'include', // 쿠키 포함
         });
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (selectedFile) {
                 formData.append('profileImage', selectedFile); // 선택된 프로필 이미지 추가
             }
-            const response = await fetch(`${API_URL}/${userId}`, {
+            const response = await fetch(`http://3.83.156.215:4000/${userId}`, {
                 method: 'PUT',
                 credentials: 'include',
                 body: formData, // FormData 전송
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     infoDeleteCheck.addEventListener('click', async (e) => {
         e.preventDefault();
         try{
-            const response = await fetch(`${API_URL}/users/${userId}`, {
+            const response = await fetch(`http://3.83.156.215:4000/users/${userId}`, {
                 method: 'DELETE',
                 credentials: 'include',
             })

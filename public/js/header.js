@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 로그아웃
     if (logout) {
         logout.addEventListener('click', async () => {
-            const response = await fetch(`${API_URL}/users/logout`, { method: 'POST', credentials: 'include' });
+            const response = await fetch(`http://3.83.156.215:4000/users/logout`, { method: 'POST', credentials: 'include' });
             if (response.ok) {
                 alert('로그아웃 성공');
                 window.location.href = '/';
