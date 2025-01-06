@@ -222,3 +222,8 @@
     font-weight: bold;
     font-weight: 700;
 }
+.placeholder {
+    width: 50px; /* 버튼 없는 경우에도 동일한 너비 */
+    height: 20px; /* 최소 높이 */
+    visibility: hidden; /* 보이지 않지만 공간 차지 */
+}

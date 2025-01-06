@@ -5,11 +5,6 @@
     font-weight: 400;
     font-style: normal;
 }
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 800;
-    src: url("../../../Pretendard-Bold.woff") format('woff');
-}
 .bold{
     font-family: "Pretendard-Bold", sans-serif;
     font-weight: bold;

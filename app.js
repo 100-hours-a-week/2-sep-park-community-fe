@@ -1,5 +1,5 @@
 
-
+import API_URL from './public/js/config.js';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';

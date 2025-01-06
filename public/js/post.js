@@ -1,5 +1,6 @@
 // 게시글 목록 API
 //import { API_URL } from '../../app.js';
+import API_URL from './config.js';
 document.addEventListener('DOMContentLoaded', () => {
 const container = document.querySelector('.posts');
     // 로그인 버튼 클릭 시 동작
@@ -8,15 +9,7 @@ const container = document.querySelector('.posts');
         window.location.href = '/posts/addpost'; // 버큰 클릭 후 게시물 작성 페이지 이동
     });
 
-    // 게시물박스 클릭 시 동작
-    //const postBox = document.getElementById('postBox');
-    //postBox.addEventListener('click', () => {
-        //window.location.href = '/postcheck'; // 해당 게시물로 이동
-   // });
-// 게시물 목록 가져오기
-
-
-    fetch(`http://3.83.156.215:4000/posts`, {
+    fetch(`${API_URL}/posts`, {
         method: 'GET',
         mode: 'cors',
         credentials: "include", // 쿠키를 요청에 포함

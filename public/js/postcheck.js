@@ -2,11 +2,30 @@
 //댓글 작성,수정,삭제 API
 //게시글 수정, 삭제 API
 //import { API_URL } from '../../app.js';
+import API_URL from './config.js';
 document.addEventListener('DOMContentLoaded', async () => {
     const postComments = document.getElementById('postComments');
     const commentText = document.getElementById('commentText'); // 댓글 input
 
+    // 세션 데이터 가져오기
+    let currentUserId = null;
+    try {
+        const response = await fetch(`${API_URL}/auth/session`, {
+            method: 'GET',
+            credentials: 'include', // 쿠키 포함
+        });
 
+        if (response.ok) {
+            const data = await response.json();
+            currentUserId = data.user.userId; // 세션에서 userId 가져오기
+            console.log(currentUserId);
+
+        } else {
+            console.error('세션 정보를 가져오지 못했습니다.');
+        }
+    } catch (error) {
+        console.error('세션 요청 중 오류 발생:', error);
+    }
     // 현재 URL 경로에서 postId 추출
     const pathname = window.location.pathname; // 예: "/posts/1"
     const match = pathname.match(/\/posts\/(\d+)/); // 정규식으로 postId 추출
@@ -15,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const postId = match ? match[1] : null;
 
     // 게시글 조회 (랜더링)
-    fetch(`http://3.83.156.215:4000/posts/${postId}`, {
+    fetch(`${API_URL}/posts/${postId}`, {
         method: 'GET',
         mode: 'cors',
         credentials: "include",
@@ -36,8 +55,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                             </div>
                             <div class="date" >${post.dateAt}</div>
                             <div class="minibtns">
-                                <div class="minibtn modify-btn" id="postModifyBtn">수정</div>
-                                <div class="minibtn delete-btn" id="postDeleteBtn">삭제</div>
+                            ${
+                                 post.userId === currentUserId
+                                     ? `<div class="minibtn modify-btn" id="postModifyBtn" data-post-id="${post.id}">수정</div>
+                                        <div class="minibtn delete-btn" id="postDeleteBtn" data-post-id="${post.id}">삭제</div>`
+                                    : ""
+                            }   
                             </div>
                         </div>
                     </div>
@@ -46,8 +69,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div class="textContainer">${post.content}</div>
             </div>
             <div class="clickBtn">
-                        <div class="views" id="likeBtn">
-                            <div class="count" id="likeContainer">${post.likeCount}</div>
+                        <div class="views like-btn" id="likeBtn" data-post-id="postId">
+                            <div class="count" id="likeContainer">
+                            <span id="likeCount">${post.likeCount}</span>
+                            </div>
                             좋아요 수 
                         </div>
                         <div class="views">
@@ -70,53 +95,53 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error('likeContainer 요소를 찾을 수 없습니다.');
             }
             document.body.addEventListener('click', async (e) => {
-                // 클릭된 요소의 ID가 'likeContainer'인지 확인
-                if (e.target.id === 'likeContainer') {
+                const likeBtn = e.target.closest('.like-btn'); // 클릭된 요소에서 가장 가까운 like-btn 확인
+                if (likeBtn) {
                     e.preventDefault();
-                    console.log('좋아요 클릭!2');
+                    console.log("좋아요 버튼 클릭, postId:", postId);
+
+                    const likeCountElement = likeBtn.querySelector("#likeCount");
+                    if (!likeCountElement) {
+                        console.error("좋아요 숫자를 표시할 요소를 찾을 수 없습니다.");
+                        return;
+                    }
+
                     try {
-                        // 좋아요 상태 조회
-                        const response = await fetch(`http://3.83.156.215:4000/${postId}/like/likeCheck`, {
-                            method: 'GET',
-                            mode: 'cors',
-                            credentials: 'include',
+                        const response = await fetch(`${API_URL}/posts/${postId}/like/likeCheck`, {
+                            method: "GET",
+                            mode: "cors",
+                            credentials: "include",
                         });
-                        // { isLiked: true}
+
                         if (response.ok) {
-                            const { isLiked } = await response.json(); // 응답에서 isLiked 추출
+                            const { isLiked } = await response.json();
 
                             if (isLiked) {
-                                // 좋아요 취소
-                                const deleteResponse = await fetch(`http://3.83.156.215:4000/${postId}/like`, {
-                                    method: 'DELETE',
-                                    mode: 'cors',
-                                    credentials: 'include',
+                                const deleteResponse = await fetch(`${API_URL}/posts/${postId}/like`, {
+                                    method: "DELETE",
+                                    mode: "cors",
+                                    credentials: "include",
                                 });
 
                                 if (deleteResponse.ok) {
-                                    console.log('좋아요 취소 완료');
-                                    window.location.reload(); // 새로고침
-                                } else {
-                                    console.error('좋아요 취소 중 오류 발생');
+                                    console.log("좋아요 취소 완료");
+                                    likeCountElement.innerText = parseInt(likeCountElement.innerText, 10) - 1;
                                 }
                             } else {
-                                // 좋아요 추가
-                                const postResponse = await fetch(`http://3.83.156.215:4000/posts/${postId}/like`, {
-                                    method: 'get',
-                                    mode: 'cors',
-                                    credentials: 'include',
+                                const postResponse = await fetch(`${API_URL}/posts/${postId}/like`, {
+                                    method: "GET",
+                                    mode: "cors",
+                                    credentials: "include",
                                 });
 
                                 if (postResponse.ok) {
-                                    console.log('좋아요 추가 완료');
-                                    window.location.reload(); // 새로고침
-                                } else {
-                                    console.error('좋아요 추가 중 오류 발생');
+                                    console.log("좋아요 추가 완료");
+                                    likeCountElement.innerText = parseInt(likeCountElement.innerText, 10) + 1;
                                 }
                             }
                         }
                     } catch (error) {
-                        console.error('네트워크 오류 발생:', error);
+                        console.error("네트워크 오류 발생:", error);
                     }
                 }
             });
@@ -168,7 +193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const postDeleteCheckBtn = document.getElementById('postDeleteCheckBtn');
                         if (postDeleteCheckBtn) {
                             postDeleteCheckBtn.addEventListener('click', () => {
-                                fetch(`http://3.83.156.215:4000/posts/${postId}`, {
+                                fetch(`${API_URL}/posts/${postId}`, {
                                     method: 'DELETE',
                                     credentials: 'include',
                                 })
@@ -192,7 +217,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     // 댓글 조회 (랜더링)
-    fetch(`http://3.83.156.215:4000/posts/${postId}/comments`, {
+    fetch(`${API_URL}/posts/${postId}/comments`, {
         method: 'GET',
         mode: 'cors',
         credentials: "include", // 쿠키 포함
@@ -217,6 +242,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // 댓글 데이터로 HTML 생성
             comments.forEach((comment) => {
+                const isCurrentUser = comment.userId === currentUserId;
                 const commentElement = document.createElement('div');
                 commentElement.classList.add('commentsList');
 
@@ -229,9 +255,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <div id="authorContent">${comment.author || '익명'}</div>
                     </div>
                     <div class="date">${comment.dateAt}</div>
-                    <div class="minibtns">. 
-                        <div class="minibtn modify-btn" data-id="${comment.commentId}" id="commentModifyBtn">수정</div>
-                        <div class="minibtn delete-btn" data-id="${comment.commentId}" id="commentDeleteBtn">삭제</div>
+                    <div class="minibtns"> 
+               ${
+                    isCurrentUser
+                        ? `<div class="minibtn modify-btn" data-id="${comment.commentId}">수정</div>
+                               <div class="minibtn delete-btn" data-id="${comment.commentId}">삭제</div>`
+                        : `<div class="placeholder"></div>`
+                }
                     </div>
                 </div>
                 <div class="bottom">
@@ -251,8 +281,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 댓글 삭제 이벤트 위임
     document.body.addEventListener('click', (e) => {
-        if (e.target.classList.contains('delete-btn') && e.target.getAttribute('data-id')) {
-            const commentId = e.target.getAttribute('data-id');
+        const deleteBtn = e.target.closest('.delete-btn');
+        if (deleteBtn && deleteBtn.dataset.id) {
+            const commentId = deleteBtn.dataset.id;
             console.log(`댓글 삭제 버튼 클릭: ${commentId}`);
 
             // 댓글 삭제 확인 모달 열기
@@ -270,7 +301,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const commentDeleteCheckBtn = document.getElementById('commentDeleteCheckBtn');
                 if (commentDeleteCheckBtn) {
                     commentDeleteCheckBtn.addEventListener('click', () => {
-                        fetch(`http://3.83.156.215:4000/posts/${postId}/comments/${commentId}`, {
+                        fetch(`${API_URL}/posts/${postId}/comments/${commentId}`, {
                             method: 'DELETE',
                             credentials: 'include',
                         })
@@ -337,7 +368,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (isEditing && editingCommentId) {
             // 수정 상태일 때 PUT 요청
-                const response = await fetch(`http://3.83.156.215:4000/posts/${postId}/comments/${editingCommentId}`, {
+                const response = await fetch(`${API_URL}/posts/${postId}/comments/${editingCommentId}`, {
                 method: 'PUT',
                 mode: 'cors',
                 credentials: "include",
@@ -354,7 +385,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         } else {
             // 댓글 작성 상태일 때 POST 요청
-            fetch(`http://3.83.156.215:4000/posts/${postId}/comments`, {
+            fetch(`${API_URL}/posts/${postId}/comments`, {
                 method: 'POST',
                 mode: 'cors',
                 credentials: "include",
