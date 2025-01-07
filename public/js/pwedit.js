@@ -65,12 +65,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             mode: "cors",
             credentials: "include", // 쿠키 포함
         });
-
-        if (response.ok) {
+        if(! response.ok){
+            if(response.status === 401) {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/';
+            }
+        }
+        else if (response.ok) {
             const data = await response.json();
             userId = data.user.id;
         } else {
             console.error("세션 데이터를 가져오는 데 실패했습니다.");
+            alert("로그인이 필요합니다.");
             return;
         }
     } catch (error) {

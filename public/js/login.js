@@ -14,11 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
 
-    // 유효성 검사에 따라 버튼 색상 업데이트
-    emailInput.addEventListener('input', updateButtonColor);
-    passwordInput.addEventListener('input', updateButtonColor);
-    // 이메일 입력 시 헬퍼 텍스트 업데이트
-    emailInput.addEventListener('change', updateHelperText);
+    // 유효성 검사에 따라 버튼 하이퍼 텍스트 업데이트
+    emailInput.addEventListener('input', updateHelperText);
+    passwordInput.addEventListener('input', updateHelperText);
 
     // 로그인 버튼 클릭 시 이벤트 처리
     loginButton.addEventListener('click', async (e) => {
@@ -75,23 +73,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '/signup';
     });
 
-    // 버튼 색상 업데이트
-    function updateButtonColor() {
-        const emailValid = validateEmail(emailInput.value);
-        const passwordValid = validatePassword(passwordInput.value);
-
-        loginButton.style.backgroundColor = emailValid && passwordValid ? '#7F6AEE' : '#ACA0EB';
-    }
 
     // 이메일 유효성 검사 실패 시 헬퍼 텍스트 업데이트
     function updateHelperText() {
         const emailValid = validateEmail(emailInput.value);
-        const passwordEmpty = isPasswordEmpty(passwordInput.value);
+        const passwordValid = validatePassword(passwordInput.value);
+
+        loginButton.style.backgroundColor = emailValid && passwordValid ? '#7F6AEE' : '#ACA0EB';
 
         if (!emailValid) {
             showHelperText('올바른 이메일 주소 형식을 입력해주세요.');
-        } else if (passwordEmpty) {
-            showHelperText('비밀번호를 입력해주세요.');
+        } else if (!passwordValid) {
+            showHelperText('비밀번호는 8~20자, 대소문자, 숫자 및 특수문자를 포함해야 합니다.');
         } else {
             hideHelperText();
         }

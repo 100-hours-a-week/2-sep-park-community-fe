@@ -4,7 +4,7 @@
 //import { API_URL } from '../../app.js';
 import API_URL from './config.js';
 document.addEventListener('DOMContentLoaded', async () => {
-    const postComments = document.getElementById('postComments');
+    const postComments = document.getElementById('postComments'); // 댓글 등록 버튼
     const commentText = document.getElementById('commentText'); // 댓글 input
 
     // 세션 데이터 가져오기

@@ -2,8 +2,8 @@
 import API_URL from './config.js';
 document.addEventListener('DOMContentLoaded', async () => {
     const editForm = document.getElementById('editPost');
-    const title = document.getElementById('editTitle');
-    const content = document.getElementById('editContent');
+    const inputTitle = document.getElementById('editTitle');
+    const inputContent = document.getElementById('editContent');
     const postImg = document.getElementById('editUpload');
     const currentImageInfo = document.getElementById('currentImageInfo');
     let imageStatus = "keep"; // 초기 상태: 기존 이미지 유지
@@ -18,7 +18,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const response = await fetch(`${API_URL}/posts/${postId}/postImg`);
         if (response.ok) {
             const data = await response.json();
-            const { postImagePath } = data;
+            const { postImagePath, title, body } = data;
+
+            // 제목과 본문 필드에 기존 데이터 설정
+            if (title) {
+                inputTitle.value = title; // 제목 설정
+            }
+            if (body) {
+                inputContent.value = body; // 본문 설정
+            }
 
             // 기존 이미지 파일명 설정
             if (postImagePath) {

@@ -36,7 +36,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             credentials: 'include', // 쿠키 포함
         });
 
-        if (response.ok) {
+        if (!response.ok) {
+            if(response.status === 401) {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/';
+            }
+        }
+        else if (response.ok) {
             const data = await response.json();
             console.log(data);
 
@@ -65,6 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
     } catch (error) {
+
         console.error('오류 발생:', error);
     }
 
