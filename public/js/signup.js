@@ -156,7 +156,7 @@ nameInput.addEventListener("input", validateName);
 
 
     // 회원가입 버튼 클릭 시 검증
-    signupButton.addEventListener("click", function (e) {
+    signupButton.addEventListener("click", async function (e) {
         e.preventDefault();
 
         const profileHelper = document.getElementById("profileHelper");
@@ -168,38 +168,57 @@ nameInput.addEventListener("input", validateName);
             return;
         }
 
-        // 다른 유효성 검사 로직 수행
+        // 유효성 검사
         const emailCheck = validateEmail();
         const passwordCheck = validatePassword();
         const passwordMatchCheck = validatePasswordCheck();
         const nameCheck = validateName();
 
-        if (emailCheck && passwordCheck && passwordMatchCheck && nameCheck) {
-            // FormData 생성 및 서버 전송 로직 추가
-            const formData = new FormData();
-            formData.append("email", emailInput.value);
-            formData.append("password", passwordInput.value);
-            formData.append("name", nameInput.value);
-            formData.append("profileImage", fileInput.files[0]); // 필드 이름은 'profileImage'
+        if (!(emailCheck && passwordCheck && passwordMatchCheck && nameCheck)) {
+            return;
+        }
 
-            // 데이터 전송 로직
-            fetch(`${API_URL}/auth/signup`, {
-                method: "POST",
-                body: formData
-            }).then(response => {
-                if (response.ok) {
-                    alert("회원가입이 완료되었습니다.");
-                    window.location.href = "/";
-                } else {
-                    response.json().then(data => {
-                        const errorMessage = data.message || `회원가입 실패:(HTTP ${response.status})`;
-                        alert(errorMessage);
-                    });
-                }
-            }).catch(error => {
-                console.error("회원가입 중 오류:", error);
-                alert("회원가입 중 문제가 발생했습니다. 다시 시도해주세요.");
+        try {
+            //Presigned URL 요청
+            const file = fileInput.files[0];
+            const response = await fetch(`${API_URL}/auth/presigned-url?fileName=${encodeURIComponent(file.name)}&fileType=${encodeURIComponent(file.type)}`);
+            const { uploadUrl, fileUrl } = await response.json();
+
+            //Presigned URL을 사용해 S3에 직접 업로드
+            const uploadResponse = await fetch(uploadUrl, {
+                method: "PUT",
+                headers: { "Content-Type": file.type },
+                body: file,
             });
+
+            if (!uploadResponse.ok) {
+                throw new Error("파일 업로드 실패");
+            }
+
+            // 3️⃣ 회원가입 요청 (파일을 서버에 보내지 않고, 업로드된 S3 URL을 전송)
+            const signupData = {
+                email: emailInput.value,
+                password: passwordInput.value,
+                name: nameInput.value,
+                profileImageUrl: fileUrl, // 업로드된 S3 URL만 전송
+            };
+
+            const signupResponse = await fetch(`${API_URL}/auth/signup`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(signupData),
+            });
+
+            if (signupResponse.ok) {
+                alert("회원가입이 완료되었습니다.");
+                window.location.href = "/";
+            } else {
+                const errorData = await signupResponse.json();
+                alert(errorData.message || "회원가입 실패");
+            }
+        } catch (error) {
+            console.error("회원가입 중 오류:", error);
+            alert("회원가입 중 문제가 발생했습니다.");
         }
     });
 });
