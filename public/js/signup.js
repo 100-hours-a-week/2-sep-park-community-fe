@@ -187,7 +187,7 @@ nameInput.addEventListener("input", validateName);
             //Presigned URL을 사용해 S3에 직접 업로드
             const uploadResponse = await fetch(uploadUrl, {
                 method: "PUT",
-                headers: { "Content-Type": file.type },
+                //headers: { "Content-Type": file.type },
                 body: file,
             });
 
