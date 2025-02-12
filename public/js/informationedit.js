@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const infoDeleteCheck=document.getElementById('infoDeleteCheck');
     let userId = null;
     let selectedFile = null; // 선택된 파일을 기억하기 위한 변수
-
+    let profileImgPath = "";
 // 모달 열기 이벤트
     modalOpenButton.addEventListener('click', () => {
         modal.classList.remove('hidden'); // 'hidden' 클래스 제거
@@ -56,13 +56,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 emailElement.innerText = userEmail;
             }
 
-            // 프로필 이미지 경로 설정 (localStorage 사용)
-            const profileImgPath = localStorage.getItem('profileImg');
+            // 프로필 이미지 경로 설정 (서버에서 받은 데이터 사용)
+            const profileImgPath =decodeURIComponent(data.user.profileImg);
             if (profileImgPath) {
                 circle.style.backgroundImage = `url(${profileImgPath})`;
                 circle.style.backgroundSize = 'cover';
                 circle.style.backgroundPosition = 'center';
             }
+
 
             // 닉네임 placeholder 업데이트 및 localStorage 동기화
             if (nameInput) {
@@ -126,15 +127,59 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         try {
             // FormData 생성
-            const formData = new FormData();
-            formData.append('name', editName); // 닉네임 추가
+            // Presigned URL 요청 함수
+            async function getPresignedUrl(file) {
+                try {
+                    const response = await fetch(`${API_URL}/upload/presigned-url?fileName=${encodeURIComponent(file.name)}&fileType=${encodeURIComponent(file.type)}&folder=profile`);
+                    if (!response.ok) throw new Error("Presigned URL 요청 실패");
+
+                    const { uploadUrl, fileUrl } = await response.json();
+                    return { uploadUrl, fileUrl };
+                } catch (error) {
+                    console.error("Presigned URL 요청 중 오류:", error);
+                    alert("이미지 업로드 URL을 가져오는 중 문제가 발생했습니다.");
+                    return null;
+                }
+            }
+
+// S3로 직접 이미지 업로드
+            async function uploadImageToS3(uploadUrl, file) {
+                try {
+                    const response = await fetch(uploadUrl, {
+                        method: "PUT",
+                        headers: { "Content-Type": file.type },
+                        body: file,
+                    });
+                    if (!response.ok) throw new Error("S3 업로드 실패");
+                    return true;
+                } catch (error) {
+                    console.error("S3 업로드 중 오류:", error);
+                    alert("이미지 업로드 중 문제가 발생했습니다.");
+                    return false;
+                }
+            }
+
+
+
+// 프로필 이미지 업로드 로직
+            let profileImageUrl = profileImgPath; // 기본적으로 기존 이미지 유지
             if (selectedFile) {
-                formData.append('profileImage', selectedFile); // 선택된 프로필 이미지 추가
+                const presignedData = await getPresignedUrl(selectedFile);
+                if (!presignedData) return;
+
+                const uploadSuccess = await uploadImageToS3(presignedData.uploadUrl, selectedFile);
+                if (!uploadSuccess) return;
+
+                profileImageUrl = presignedData.fileUrl;
             }
             const response = await fetch(`${API_URL}/users/${userId}`, {
                 method: 'PUT',
-                credentials: 'include',
-                body: formData, // FormData 전송
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({
+                    name: editName,
+                    profileImage: profileImageUrl, // S3 URL을 서버에 전달
+                }),
             });
             if (response.ok) {
                 const data = await response.json();
@@ -143,7 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 nameEditHelper.style.visibility = "hidden";
                 editCheckBtn.style.visibility = 'visible'; // 여기를 토스트처럼 바꿔야함
                 alert("닉네임 및 프로필 이미지가 성공적으로 변경되었습니다.");
-                localStorage.setItem('profileImg', data.user.profileImage || '');
+                localStorage.setItem('profileImage', data.user.profileImage || '');
                 window.location.reload();
             }
             else if(response.status === 409) {

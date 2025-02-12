@@ -43,41 +43,80 @@ document.addEventListener('DOMContentLoaded', () => {
     // 버튼 상태 업데이트
     updateButtonColor();
 
-    // 폼 데이터 생성
-    function createFormData() {
-        const formData = new FormData();
-        formData.append("title", title.value);
-        formData.append("content", content.value);
+// Presigned URL 요청 함수
+    async function getPresignedUrl(file) {
+        try {
+            const response = await fetch(`${API_URL}/upload/presigned-url?fileName=${encodeURIComponent(file.name)}&fileType=${encodeURIComponent(file.type)}&folder=posts`);
+            if (!response.ok) throw new Error("Presigned URL 요청 실패");
 
-        if (postImg?.files && postImg.files[0]) {
-            formData.append("postImg", postImg.files[0]);
+            const { uploadUrl, fileUrl } = await response.json();
+            return { uploadUrl, fileUrl };
+        } catch (error) {
+            console.error("Presigned URL 요청 중 오류:", error);
+            alert("이미지 업로드 URL을 가져오는 중 문제가 발생했습니다.");
+            return null;
         }
-        console.log("FormData 생성 완료:", formData);
-        return formData;
+    }
+
+    // S3로 직접 이미지 업로드
+    async function uploadImageToS3(uploadUrl, file) {
+        try {
+            const response = await fetch(uploadUrl, {
+                method: "PUT",
+                headers: { "Content-Type": file.type },
+                body: file,
+            });
+            if (!response.ok) throw new Error("S3 업로드 실패");
+            return true;
+        } catch (error) {
+            console.error("S3 업로드 중 오류:", error);
+            alert("이미지 업로드 중 문제가 발생했습니다.");
+            return false;
+        }
     }
 
 
-    // 게시글 작성
+// 게시글 작성
     if (postBtn) {
         postBtn.addEventListener('click', async (e) => {
             e.preventDefault();
 
             if (!validatePostData()) return;
 
-            const formData = createFormData();
+            let imageUrl = null;
 
+            if (postImg?.files && postImg.files[0]) {
+                const file = postImg.files[0];
+
+                // Presigned URL 요청
+                const presignedData = await getPresignedUrl(file);
+                if (!presignedData) return;
+
+                // S3로 이미지 업로드
+                const uploadSuccess = await uploadImageToS3(presignedData.uploadUrl, file);
+                if (!uploadSuccess) return;
+
+                imageUrl = presignedData.fileUrl; // CloudFront URL 사용
+            }
+
+            // 게시글 API 요청
             try {
                 const response = await fetch(`${API_URL}/posts`, {
                     method: "POST",
-                    body: formData,
+                    headers: { "Content-Type": "application/json" },
                     credentials: "include", // 쿠키를 요청에 포함
+                    body: JSON.stringify({
+                        title: title.value,
+                        content: content.value,
+                        postImg: imageUrl, // S3 URL을 백엔드로 전송
+                    }),
                 });
+
                 if (response.ok) {
                     alert("게시물 작성 성공");
                     window.location.href = "/posts";
-                }
-                else if(response.status === 401) {
-                    alert(arr.message);
+                } else if (response.status === 401) {
+                    alert("로그인이 필요합니다.");
                     window.location.href = "/";
                 }
             } catch (error) {
@@ -86,5 +125,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
 });

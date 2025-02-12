@@ -1,14 +1,12 @@
 //회원가입 API
 //import { API_URL } from '../../app.js';
 import API_URL from './config.js';
-const form = document.getElementById("signupForm");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#pw");
 const passwordCheckInput = document.querySelector("#pwcheck");
 const nameInput = document.querySelector("#name");
 const signupButton = document.getElementById("signupButton");
 const backLoginButton = document.getElementById("backLoginButton");
-const profileImg=document.getElementById("profileImage");
 const circle = document.getElementById('circle'); // .circle 요소
 const uploadText = document.getElementById('uploadText'); // "+" 텍스트
 const fileInput = document.getElementById('fileUpload');
@@ -61,8 +59,6 @@ function resetCircle() {
     uploadText.style.display = 'block'; // "+" 텍스트 다시 표시
 }
 
-
-
 // 파일 선택 후 상태 업데이트
 fileInput.addEventListener('change', function () {
     const profileHelper = document.getElementById("profileHelper");
@@ -76,8 +72,8 @@ fileInput.addEventListener('change', function () {
     }
 });
 
+
 document.addEventListener("DOMContentLoaded", function () {
-    // 정규표현식 패턴 정의
 // 입력할 때마다 유효성 검사 및 헬퍼 텍스트 업데이트
 emailInput.addEventListener("input", validateEmail);
 passwordInput.addEventListener("input", validatePassword);
@@ -123,12 +119,14 @@ nameInput.addEventListener("input", validateName);
         nameHelper.style.visibility = "hidden";
         return true;
     }
-// 입력할 때마다 버튼 색상 업데이트
+
+    // 입력할 때마다 버튼 색상 업데이트
     emailInput.addEventListener("input", updateButtonColor);
     passwordInput.addEventListener("input", updateButtonColor);
     passwordCheckInput.addEventListener("input", updateButtonColor);
     nameInput.addEventListener("input", updateButtonColor);
     // 유효성 검사에 따라 버튼 색상 업데이트 함수
+
     function updateButtonColor() {
         const emailCheck = validateEmail();
         const passwordCheck = validatePassword();
@@ -141,8 +139,6 @@ nameInput.addEventListener("input", validateName);
             signupButton.style.backgroundColor = "#ACA0EB"; // 유효하지 않을 때 색상
         }
     }
-
-
 
     // 로그인 창 이동 버튼
     backLoginButton.addEventListener("click", (e) => {
@@ -181,21 +177,21 @@ nameInput.addEventListener("input", validateName);
         try {
             //Presigned URL 요청
             const file = fileInput.files[0];
-            const response = await fetch(`${API_URL}/auth/presigned-url?fileName=${encodeURIComponent(file.name)}&fileType=${encodeURIComponent(file.type)}`);
+            const response = await fetch(`${API_URL}/upload/presigned-url?fileName=${encodeURIComponent(file.name)}&fileType=${encodeURIComponent(file.type)}`);
             const { uploadUrl, fileUrl } = await response.json();
 
             //Presigned URL을 사용해 S3에 직접 업로드
             const uploadResponse = await fetch(uploadUrl, {
                 method: "PUT",
                 //headers: { "Content-Type": file.type },
-                body: file,
+               // body: file,
             });
 
             if (!uploadResponse.ok) {
                 throw new Error("파일 업로드 실패");
             }
 
-            // 3️⃣ 회원가입 요청 (파일을 서버에 보내지 않고, 업로드된 S3 URL을 전송)
+            // 회원가입 요청 (파일을 서버에 보내지 않고, 업로드된 S3 URL을 전송)
             const signupData = {
                 email: emailInput.value,
                 password: passwordInput.value,

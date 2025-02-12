@@ -1,6 +1,6 @@
 //import { API_URL } from '../../app.js';
 import API_URL from './config.js';
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // DOM 요소 선택
     const profile = document.querySelector('.headerInner .profile'); // 프로필 이미지 클릭 영역
     const menu = document.querySelector('.menu'); // 메뉴 영역
@@ -8,13 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const logout = document.querySelector('.logout'); // 로그아웃
     const info = document.querySelector('.menu .profile'); // 정보 수정
     const arrow = document.querySelector('.arrow'); // 뒤로 가기 화살표
+    try {
+        const response = await fetch(`${API_URL}/auth/session`, {
+            method: 'GET',
+            credentials: 'include',
+        });
 
-    // 프로필 이미지 렌더링 (localStorage에서 가져오기)
-    const profileImgPath = localStorage.getItem('profileImg');
-    if (profile && profileImgPath) {
-        profile.style.backgroundImage = `url(${profileImgPath})`;
-        profile.style.backgroundSize = 'cover'; // 이미지를 꽉 채움
-        profile.style.backgroundPosition = 'center'; // 중앙 정렬
+        if (response.ok) {
+            const data = await response.json();
+            const profileImgPath = data.user.profileImg; // 서버에서 가져온 프로필 이미지
+
+            if (profile && profileImgPath) {
+                profile.style.backgroundImage = `url(${profileImgPath})`;
+                profile.style.backgroundSize = 'cover';
+                profile.style.backgroundPosition = 'center';
+            }
+        }
+    } catch (error) {
+        console.error("프로필 이미지 로드 중 오류 발생:", error);
     }
 
     // 메뉴 토글 (프로필 클릭 시)
