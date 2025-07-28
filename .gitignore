@@ -86,6 +86,8 @@ storybook-static/
 # User-uploaded files (customize based on your upload directories)
 uploads/
 public/uploads/
+img/posts/
+img/profile/
 
 # Package lock files (choose one based on your package manager)
 # Uncomment the one you DON'T use:
