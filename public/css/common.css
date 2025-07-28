@@ -1,0 +1,327 @@
+@font-face {
+    font-family: "Pretendard-Regular";
+    src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+.bold{
+    font-family: "Pretendard-Bold", sans-serif;
+    font-weight: bold;
+}
+body {
+    width: 100vw;
+    height: 100%;
+    background-color: #f8fafc;
+    font-family: "Pretendard-Regular", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+header {
+    font-size: 32px;
+    color: #1f2937;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+    font-weight: 400;
+    height: 104px;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+header h1 {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 32px;
+    margin: auto;
+}
+header .headerInner {
+    width: 544px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-right:-20px ;
+}
+header div.circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+    background-color: #ccc;
+}
+header div.right{
+    display: flex;
+    align-self: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+    background-color: #f4f5f7;
+}
+header div.left{
+    width: 40px;
+    height: 40px;
+
+}
+header div.profile {
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+}
+
+header div.profile div {
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #4a4545;
+}
+header div.arrowbox {
+    width: 40px;
+    height: 40px;
+}
+header div.arrow {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 35px;
+}
+.buttons {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+}
+.buttons button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 355px;
+    height: 40px;
+    background-color: #3b82f6;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-right: 20px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.buttons button:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.buttons a {
+    font-weight: 400;
+    align-content:center ;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+
+.helperText {
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: 400;
+    visibility: hidden;
+
+}
+.inputBox input {
+    width: 355px;
+    height: 40px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    margin: 8px 0 4px 0;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+    background-color: #ffffff;
+}
+
+.inputBox input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 8px;
+    position: relative;
+}
+.inputBox input::placeholder {
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+}
+/*.buttons button:hover {
+    background-color: #2563eb;
+}*/
+.circle {
+    width: 149px;
+    height: 149px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    background-color: #605757;
+    align-items: center;
+    display: flex;
+    justify-content: center; /* 자식 요소를 가운데 정렬 */
+    position: relative; /* 이미지와 레이블 겹침 제어 */
+    overflow: hidden; /* 원 밖으로 나가는 이미지 숨김 */
+    cursor: pointer;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+/* 헤더 메뉴 팝업 */
+.menu {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+    position: absolute;
+    top: 45px;  /* 기존 45 */
+    right: 0px;   /* 기존 0 */
+    width: 115px;
+    background-color: #d9d9d9;;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu.visible { /* visible 클래스가 추가될 때 */
+    visibility: visible;
+    opacity: 1;
+}
+
+.menu.visible div {
+    width: 115px;
+    height: 35px;
+    padding: 10px 24px;
+    box-sizing: border-box;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* 버튼 클래스 경로 수정 */
+.modalOpenButton {
+    cursor: pointer;
+}
+#font14{
+    font-size: 14px;
+}
+
+/* 모달 컨테이너 경로 수정 */
+.modalContainer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* 기존 내용 유지 */
+.hidden {
+    display: none;
+}
+
+.modalContent {
+    position: relative; /* 부모 요소 기준으로 정렬 */
+    background-color: #ffffff;
+    width: 408px;
+    height: 242px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    align-content: center;
+}
+.contentInner {
+    display: flex;
+    flex-direction: column; /* 세로 방향 배치 */
+    justify-content: center; /* 텍스트와 버튼의 세로 정렬 */
+    align-items: center; /* 텍스트와 버튼의 가로 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    gap: 16px; /* 요소 간 간격 */
+}
+.modalContent h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 268px;
+    height: 29px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.modalContent .modalbtns {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.modalbtns .modalCheckButton {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 127px;
+    height: 44px;
+    background-color: #3b82f6;
+    color: #000;
+    font-size: 20px;
+    font-weight: 400;
+    border: none;
+    border-radius: 12px;
+}
+.modalbtns .modalCloseButton {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 127px;
+    height: 44px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 400;
+    border: none;
+    border-radius: 12px;
+}

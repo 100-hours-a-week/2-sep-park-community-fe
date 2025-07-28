@@ -1,0 +1,168 @@
+.inner {
+    width: 600px;
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+.inner .h2Title {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: 24px 0 25px;
+    line-height: 31.2px;
+    box-sizing: border-box;
+}
+.inner {
+    width: 592px;
+    display: flex;
+    flex-direction: column;
+}
+.inner .input {
+    width: 100%;
+}
+.inner .input .title,
+.inner .inputFile .title {
+    padding: 26px 0 16px 24px;
+    padding-top: 26px;
+    box-sizing: border-box;
+    font-weight: 700;
+    font-size: 16px;
+}
+.inner.input.imgtitle{
+    padding: 26px 0 16px 24px;
+    padding-top: 26px;
+    box-sizing: border-box;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.inner .inputFile .title {
+    padding: 11px 0 8px 24px;
+}
+
+.inner .input .content {
+    font-size: 16px;
+    font-weight: 700;
+}
+.inner .input .content,
+.inner .input .content2 {
+    width: 592px;
+    height: 64px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    padding: 16px 20px;
+    line-height: 21.15px;
+    transition: all 0.2s ease-in-out;
+    font-size: 16px;
+}
+
+.inner .input .content:focus,
+.inner .input .content2:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.inner .input .content::placeholder{
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.inner form .input .content,
+.inner form .input .content2:focus {
+    outline: none;
+}
+
+.inner .input .content2 {
+    padding: 20px;
+    height: 280px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 200px;
+}
+.inner .input .content2::placeholder {
+    width: 544px;
+    height: 100%;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.inner .makeComment .box textarea:focus {
+    outline: none;
+}
+.inner form .inputFile .fileLabel {
+    display: flex;
+    padding: 0 0 0 24px;
+    gap: 12px;
+}
+.btn {
+    padding: 10px 16px;
+    box-sizing: border-box;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background-color: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 361px;
+    height: 44px;
+    background-color: #3b82f6;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 24px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+button.active {
+    background-color: #2563eb;
+}
+
+button a.color {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

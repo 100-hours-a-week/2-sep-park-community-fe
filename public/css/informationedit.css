@@ -1,0 +1,144 @@
+.inner {
+    width: 392px;
+    height: 613px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.inner .h2Title {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: 24px 0 25px;
+    line-height: 31.2px;
+    box-sizing: border-box;
+}
+/* 이메일, 비밀번호, 비밀번호 확인, 닉네임 */
+.inner .textContainer {
+    display: flex;
+    align-items: center;
+    width: 392px;
+    height: 168px;
+}
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 361px;
+    height: 37px;
+    background-color: #3b82f6;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 4px;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+}
+button.active {
+    background-color: #2563eb;
+}
+
+button a.color{
+    color: #ffffff;
+}
+button:hover {
+    background-color: #2563eb;
+}
+.btn {
+    background-color:#3b82f6;
+    width: 102px;
+    height: 46px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+}
+.btn:hover {
+    background-color: #2563eb;
+}
+.inner .commentsList {
+    padding: 24px 0 24px 24px;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.inner .comments .bottom {
+    height: 29px;
+}
+
+.deleteButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 355px;
+    height: 33px;
+    cursor: pointer;
+    margin-top: 4px;
+    border: none;
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.container2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+.container3 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap:45px;
+}
+#toastBtn{
+    visibility: hidden;
+}
+
+
+#profileHover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.circle:hover #profileHover {
+    opacity: 1;
+    visibility: visible;
+}
+
+#hoverText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-family: "Pretendard-Bold", sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#profileHover:hover #hoverText {
+    opacity: 0.8;
+}

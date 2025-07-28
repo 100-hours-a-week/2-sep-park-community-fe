@@ -1,0 +1,6 @@
+main {
+    display: flex;
+    width: auto;
+    align-items: center;
+    height: calc(100vh - 200px);/* 임시방편 */
+}

@@ -1,0 +1,119 @@
+//로그인 API
+//import { API_URL } from '../../app.js';
+import API_URL from './config.js';
+document.addEventListener('DOMContentLoaded', () => {
+    // 요소 가져오기
+    const form = document.getElementById("loginForm");
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('pw');
+    const loginButton = document.getElementById('loginButton');
+    const signupButton = document.getElementById('signupButton');
+    const helper = document.getElementById('helperText');
+
+    // 정규표현식 패턴
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
+
+    // 유효성 검사에 따라 버튼 하이퍼 텍스트 업데이트
+    emailInput.addEventListener('input', updateHelperText);
+    passwordInput.addEventListener('input', updateHelperText);
+
+    // 로그인 버튼 클릭 시 이벤트 처리
+    loginButton.addEventListener('click', async (e) => {
+        e.preventDefault(); // 기본 제출 동작 방지
+        helper.style.visibility = 'hidden';
+        helper.innerText = '';
+
+        // 이메일과 비밀번호 유효성 검사
+        if (validateEmail(emailInput.value) && validatePassword(passwordInput.value)) {
+            const loginData = {
+                email: emailInput.value,
+                password: passwordInput.value,
+            };
+
+            try {
+                // API 호출
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(loginData),
+                    credentials: 'include',
+                });
+
+                // 응답 처리
+                if (response.status === 401) {
+                    const errorData = await response.json();
+                    showHelperText(errorData.message);
+                }else if (response.ok) {
+                    const data = await response.json();
+
+                    if (data.user) {
+                        // 프로필 이미지 저장
+                        const profileImgPath = data.user.profileImg;
+                        localStorage.setItem('profileImg', profileImgPath);
+                        alert("로그인 성공");
+                        window.location.href = '/posts';
+                    }
+                    else {
+                        alert("사용자 정보를 불러오지 못했습니다.");
+                    }
+                }
+            } catch (error) {
+                console.error("Error during login:", error);
+                alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+            }
+        }else {
+            showHelperText('이메일 또는 비밀번호 형식이 올바르지 않습니다.');
+        }
+    });
+
+    // 회원가입 버튼 클릭 시 회원가입 페이지로 이동
+    signupButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = '/signup';
+    });
+
+
+    // 이메일 유효성 검사 실패 시 헬퍼 텍스트 업데이트
+    function updateHelperText() {
+        const emailValid = validateEmail(emailInput.value);
+        const passwordValid = validatePassword(passwordInput.value);
+
+        loginButton.style.backgroundColor = emailValid && passwordValid ? '#2563eb' : '#3b82f6';
+
+        if (!emailValid) {
+            showHelperText('올바른 이메일 주소 형식을 입력해주세요.');
+        } else if (!passwordValid) {
+            showHelperText('비밀번호는 8~20자, 대소문자, 숫자 및 특수문자를 포함해야 합니다.');
+        } else {
+            hideHelperText();
+        }
+    }
+
+    // 헬퍼 텍스트 표시
+    function showHelperText(message) {
+        helper.style.visibility = 'visible';
+        helper.innerText = message;
+    }
+
+    // 헬퍼 텍스트 숨기기
+    function hideHelperText() {
+        helper.style.visibility = 'hidden';
+        helper.innerText = '';
+    }
+
+    // 이메일 유효성 검사
+    function validateEmail(email) {
+        return emailPattern.test(email);
+    }
+
+    // 비밀번호 유효성 검사
+    function validatePassword(password) {
+        return passwordPattern.test(password);
+    }
+
+    // 비밀번호가 비어 있는지 검사
+    function isPasswordEmpty(password) {
+        return password.trim().length === 0;
+    }
+});

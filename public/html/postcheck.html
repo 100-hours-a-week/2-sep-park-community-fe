@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/postcheck.css">
+    <link rel="stylesheet" type="text/css" href="../css/post.css">
+    <script src="../js/postcheck.js" type="module" defer ></script>
+    <script src="../js/header.js" type="module" defer></script>
+    <title>Post Check</title>
+</head>
+<body>
+<header>
+    <div class="headerInner">
+        <div class="arrow"><</div>
+        <h1>SepFolio</h1>
+        <div class="profile">
+
+        </div>
+        <div></div>
+
+        <div class="menu">
+            <div class="profile">
+                <a href="/users/informationedit">회원정보 수정</a>
+            </div>
+            <div class="pwd">
+                <a href="/users/pwedit">비밀번호 수정</a>
+            </div>
+            <div class="logout">
+                <a href="/2-sep-park-community-fe/public">로그아웃</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="inner">
+        <!-- 게시글 컨테이너 -->
+        <div class="post"></div>
+
+
+        <div class="makeComment">
+            <div class="box">
+                <textarea id="commentText" placeholder="댓글을 남겨주세요!"></textarea>
+            </div>
+            <div class="btn">
+                <button id="postComments">댓글 등록</button>
+            </div>
+        </div>
+        <!-- 댓글 컨테이너 -->
+        <div class="commentsContainer" id="commentsContainer"></div>
+
+    </div>
+</main>
+
+<!-- 게시글 모달 창 -->
+<div class="modalContainer hidden" id="postModal">
+    <div class="modalContent">
+        <div class="contentInner">
+            <h3 id="postTitle">게시글을 삭제하시겠습니까?</h3>
+            <p id="postMessage">이 작업은 복구할 수 없습니다.</p>
+            <div class="modalbtns">
+                <button class="modalCloseButton" id="postCloseBtn">취소</button>
+                <button class="modalCheckButton" id="postDeleteCheckBtn">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 댓글 모달 창 -->
+<div class="modalContainer hidden" id="commentModal">
+    <div class="modalContent">
+        <div class="contentInner">
+            <h3 id="commentTitle">댓글을 삭제하시겠습니까?</h3>
+            <p id="commentMessage">이 작업은 복구할 수 없습니다.</p>
+            <div class="modalbtns">
+                <button class="modalCloseButton" id="commentCloseBtn">취소</button>
+                <button class="modalCheckButton" id="commentDeleteCheckBtn">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

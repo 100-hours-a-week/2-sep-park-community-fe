@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/common.css">
+  <link rel="stylesheet" type="text/css" href="../css/post.css">
+    <link rel="stylesheet" type="text/css" href="../css/addpost.css">
+    <script src="../js/addpost.js" type="module" defer></script>
+    <script src="../js/header.js" type="module" defer></script>
+    <title>addpost</title>
+</head>
+<body>
+<header>
+    <div class="headerInner">
+        <div class="arrow" id="arrow"><</div>
+        <h1>SepFolio</h1>
+        <div class="profile">
+
+        </div>
+        <div></div>
+
+        <div class="menu">
+            <div class="profile">
+                <a href="/users/informationedit">회원정보 수정</a>
+            </div>
+            <div class="pwd">
+                <a href="/users/pwedit">비밀번호 수정</a>
+            </div>
+            <div class="logout">
+                <a href="/2-sep-park-community-fe/public">로그아웃</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+<div class="inner">
+    <div class="h2Title">
+        <h2>게시글 작성</h2>
+    </div>
+
+
+    <form id="writePost" method="post" action="/api/posts" enctype="multipart/form-data">
+    <label class="input">
+        <div class="title">제목*</div>
+        <input
+                type="text"
+                class="content"
+                name="title"
+                id="postTitle"
+                placeholder="제목을 입력해주세요. (최대 26글자)"
+                maxlength="26"
+
+        />
+    </label>
+
+
+        <label class="input">
+            <div class="title">내용*</div>
+            <textarea
+                    name="content"
+                    class="content2"
+                    id="postContent"
+                    placeholder="내용을 입력해주세요."
+
+            ></textarea>
+        </label>
+
+
+        <label for="postUpload" class="input">
+            <div class="imgtitle">이미지</div>
+            <div class="fileLabel">
+                <input
+                        type="file"
+                        id="postUpload"
+                        name="postImg"
+                        class="file-input-hidden"
+                        accept="image/*"
+                />
+            </div>
+        </label>
+        <div class="center">
+        <button type="submit" id="postBtn">완료</button>
+        </div>
+    </form>
+
+</div>
+</main>
+
+
+</body>
+</html>

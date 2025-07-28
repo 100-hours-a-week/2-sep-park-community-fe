@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/signup.css">
+    <script src="../js/signup.js" type="module" defer></script>
+    <title>회원가입</title>
+</head>
+<body>
+
+<header>
+    <div class="headerInner">
+        <div class="arrow" id="arrow"><</div>
+        <h1>SepFolio</h1>
+        <div class="right"></div>
+    </div>
+</header>
+
+<section class="signcontainer">
+    <h1 class="title">회원가입</h1>
+    <form id="signupForm" action="login.html" method="post">
+        <div class="imgContainer">
+            <label class="profile">
+                <label class="bold">프로필 사진</label>
+            </label>
+            <div class="helperText" id="profileHelper"></div>
+            <div class="imgBox">
+                <div class="circle" id="circle">
+                    <label class="upload-label" id="uploadText">+</label>
+                </div>
+                <input type="file" id="fileUpload" accept="image/*" style="display: none;" />
+            </div>
+        </div>
+        <div class="inputContainer">
+        <div class="inputBox">
+            <label for="email" class="bold">이메일*</label>
+            <input type="text" name="email" id="email" placeholder="이메일을 입력하세요" >
+            <div class="helperText" id="emailHelper"></div>
+        </div>
+
+        <div class="inputBox">
+            <label for="pw" class="bold">비밀번호*</label>
+            <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요" >
+            <div class="helperText" id="pwHelper">*helper text</div>
+        </div>
+
+        <div class="inputBox">
+            <label for="pwcheck" class="bold">비밀번호 확인*</label>
+            <input type="password" name="pwcheck" id="pwcheck" placeholder="비밀번호를 한번 더 입력하세요" >
+            <div class="helperText"id="pwCheckHelper">*helper text</div>
+        </div>
+
+        <div class="inputBox">
+            <label for="name" class="bold">닉네임*</label>
+            <input type="text" name="name" id="name" placeholder="닉네임을 입력하세요" >
+            <div class="helperText" id="nameHelper">*helper text</div>
+        </div>
+        </div>
+
+        <div class="buttons">
+            <button type='button' class="color" id="signupButton">회원가입</button>
+            <label id="backLoginButton" >로그인하러 가기</label>
+
+        </div>
+    </form>
+</section>
+</body>
+</html>
